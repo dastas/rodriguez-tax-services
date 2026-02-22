@@ -1,1146 +1,1836 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rodríguez Tax Services & Accounting Group</title>
-  <meta name="description" content="Expertos en planillas estatales, federales y de negocio en Puerto Rico. Certified IRS e-file provider. Arecibo, Barceloneta, Vega Baja." />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rodríguez Tax Services & Accounting Group</title>
+    <meta
+      name="description"
+      content="Expertos en planillas estatales, federales y de negocio en Puerto Rico. Certified IRS e-file provider. Arecibo, Barceloneta, Vega Baja."
+    />
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary:   { DEFAULT: '#1B5E20', light: '#2E7D32', mid: '#388E3C', soft: '#4CAF50', pale: '#A5D6A7' },
-            accent:    { DEFAULT: '#F9A825', light: '#FDD835', dark: '#F57F17' },
-            dark:      { DEFAULT: '#0D1B0F', navy: '#0A1628' },
-            neutral:   { light: '#F4F7F4', mid: '#E8F5E9' }
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: "#1B5E20",
+                light: "#2E7D32",
+                mid: "#388E3C",
+                soft: "#4CAF50",
+                pale: "#A5D6A7",
+              },
+              accent: { DEFAULT: "#F9A825", light: "#FDD835", dark: "#F57F17" },
+              dark: { DEFAULT: "#0D1B0F", navy: "#0A1628" },
+              neutral: { light: "#F4F7F4", mid: "#E8F5E9" },
+            },
+            fontFamily: {
+              heading: ["Montserrat", "sans-serif"],
+              body: ["Open Sans", "sans-serif"],
+            },
           },
-          fontFamily: {
-            heading: ['Montserrat', 'sans-serif'],
-            body:    ['Open Sans', 'sans-serif'],
-          }
+        },
+      };
+    </script>
+
+    <style>
+      /* ── Global ── */
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Open Sans", sans-serif;
+        scroll-behavior: smooth;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Montserrat", sans-serif;
+      }
+
+      /* ── Navbar ── */
+      #navbar {
+        transition:
+          background 0.35s,
+          box-shadow 0.35s;
+      }
+      #navbar.scrolled {
+        background: #0d1b0f !important;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      /* ── Hero Carousel ── */
+      .hero-slide {
+        display: none;
+        position: absolute;
+        inset: 0;
+        transition: opacity 0.8s ease;
+        opacity: 0;
+        height: 100%;
+      }
+      .hero-slide.active {
+        display: flex;
+        opacity: 1;
+      }
+
+      /* ── Announcement Ticker ── */
+      .ticker-wrap {
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .ticker-inner {
+        display: inline-block;
+        animation: ticker 28s linear infinite;
+      }
+      .ticker-inner:hover {
+        animation-play-state: paused;
+      }
+      @keyframes ticker {
+        from {
+          transform: translateX(100vw);
+        }
+        to {
+          transform: translateX(-100%);
         }
       }
-    }
-  </script>
 
-  <style>
-    /* ── Global ── */
-    * { box-sizing: border-box; }
-    body { font-family: 'Open Sans', sans-serif; scroll-behavior: smooth; }
-    h1,h2,h3,h4 { font-family: 'Montserrat', sans-serif; }
+      /* ── Promo Carousel ── */
+      .promo-track {
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .promo-card {
+        min-width: 100%;
+      }
 
-    /* ── Navbar ── */
-    #navbar { transition: background 0.35s, box-shadow 0.35s; }
-    #navbar.scrolled { background: #0D1B0F !important; box-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+      /* ── Service Cards ── */
+      .service-card {
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .service-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 40px rgba(27, 94, 32, 0.18);
+      }
 
-    /* ── Hero Carousel ── */
-    .hero-slide { display: none; position: absolute; inset: 0; transition: opacity 0.8s ease; opacity: 0; height: 100%; }
-    .hero-slide.active { display: flex; opacity: 1; }
+      /* ── Float Buttons ── */
+      .float-btn {
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+      .float-btn:hover {
+        transform: scale(1.12);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      }
 
-    /* ── Announcement Ticker ── */
-    .ticker-wrap { overflow: hidden; white-space: nowrap; }
-    .ticker-inner { display: inline-block; animation: ticker 28s linear infinite; }
-    .ticker-inner:hover { animation-play-state: paused; }
-    @keyframes ticker {
-      from { transform: translateX(100vw); }
-      to   { transform: translateX(-100%); }
-    }
+      /* ── Pulse dot ── */
+      .pulse-dot {
+        animation: pulse-ring 1.6s ease-out infinite;
+      }
+      @keyframes pulse-ring {
+        0% {
+          box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.55);
+        }
+        70% {
+          box-shadow: 0 0 0 12px rgba(76, 175, 80, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+        }
+      }
 
-    /* ── Promo Carousel ── */
-    .promo-track { display: flex; transition: transform 0.6s cubic-bezier(.4,0,.2,1); }
-    .promo-card { min-width: 100%; }
+      /* ── Checklist ── */
+      .check-item::before {
+        content: "✔";
+        color: #4caf50;
+        font-weight: 900;
+        margin-right: 8px;
+      }
 
-    /* ── Service Cards ── */
-    .service-card { transition: transform 0.3s, box-shadow 0.3s; }
-    .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(27,94,32,0.18); }
+      /* ── Section divider ── */
+      .wave-divider {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+      }
 
-    /* ── Float Buttons ── */
-    .float-btn { transition: transform 0.25s, box-shadow 0.25s; }
-    .float-btn:hover { transform: scale(1.12); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+      /* ── Responsive: disable card lift on touch devices ── */
+      @media (hover: none) {
+        .service-card:hover {
+          transform: none;
+          box-shadow: none;
+        }
+        .float-btn:hover {
+          transform: none;
+          box-shadow: none;
+        }
+      }
 
-    /* ── Pulse dot ── */
-    .pulse-dot { animation: pulse-ring 1.6s ease-out infinite; }
-    @keyframes pulse-ring {
-      0%   { box-shadow: 0 0 0 0 rgba(76,175,80,0.55); }
-      70%  { box-shadow: 0 0 0 12px rgba(76,175,80,0); }
-      100% { box-shadow: 0 0 0 0 rgba(76,175,80,0); }
-    }
+      /* ── Ticker fixed height so navbar top is predictable ── */
+      #ticker {
+        height: 42px;
+      }
 
-    /* ── Checklist ── */
-    .check-item::before { content: '✔'; color: #4CAF50; font-weight: 900; margin-right: 8px; }
+      /* ── Hero slide content centering (needs pt offset for navbar) ── */
+      .hero-slide > div {
+        padding-top: 1.5rem;
+        transform: translateY(-20px);
+      }
 
-    /* ── Section divider ── */
-    .wave-divider { display: block; width: 100%; overflow: hidden; line-height: 0; }
+      /* ── Contact email overflow fix ── */
+      .contact-info-text {
+        min-width: 0;
+        overflow: hidden;
+      }
+      .contact-info-text a {
+        word-break: break-all;
+      }
 
-    /* ── Responsive: disable card lift on touch devices ── */
-    @media (hover: none) {
-      .service-card:hover { transform: none; box-shadow: none; }
-      .float-btn:hover { transform: none; box-shadow: none; }
-    }
+      /* ── Logo Modal ── */
+      #logo-modal {
+        transition: opacity 0.25s ease;
+        opacity: 0;
+        pointer-events: none;
+      }
+      #logo-modal.visible {
+        opacity: 1;
+        pointer-events: all;
+      }
+      #logo-modal:not(.hidden) {
+        display: flex;
+      }
+      #logo-modal .relative img {
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transform: scale(0.85);
+      }
+      #logo-modal.visible .relative img {
+        transform: scale(1);
+      }
+    </style>
+  </head>
 
-    /* ── Ticker fixed height so navbar top is predictable ── */
-    #ticker { height: 42px; }
-
-    /* ── Hero slide content centering (needs pt offset for navbar) ── */
-    .hero-slide > div { padding-top: 1.5rem; transform: translateY(-20px); }
-
-    /* ── Contact email overflow fix ── */
-    .contact-info-text { min-width: 0; overflow: hidden; }
-    .contact-info-text a { word-break: break-all; }
-
-    /* ── Logo Modal ── */
-    #logo-modal { transition: opacity 0.25s ease; opacity: 0; pointer-events: none; }
-    #logo-modal.visible { opacity: 1; pointer-events: all; }
-    #logo-modal:not(.hidden) { display: flex; }
-    #logo-modal .relative img { transition: transform 0.3s cubic-bezier(.34,1.56,.64,1); transform: scale(0.85); }
-    #logo-modal.visible .relative img { transform: scale(1); }
-  </style>
-</head>
-
-<body class="bg-white text-gray-800 overflow-x-hidden">
-
-  <!-- ═══════════════════════════════════════════
+  <body class="bg-white text-gray-800 overflow-x-hidden">
+    <!-- ═══════════════════════════════════════════
        FLOATING CONTACT BUTTONS
   ═══════════════════════════════════════════ -->
-  <div class="fixed bottom-6 right-5 z-50 flex flex-col gap-3 items-end">
+    <div class="fixed bottom-6 right-5 z-50 flex flex-col gap-3 items-end">
+      <!-- WhatsApp -->
+      <a
+        href="https://wa.me/19392441627?text=Hola%2C%20me%20interesa%20informaci%C3%B3n%20sobre%20sus%20servicios%20de%20planillas."
+        target="_blank"
+        rel="noopener"
+        class="float-btn flex items-center gap-2 bg-green-500 text-white font-heading font-bold px-4 py-3 rounded-full shadow-xl text-sm pulse-dot"
+      >
+        <i class="fab fa-whatsapp text-xl"></i>
+        <span class="hidden sm:inline">WhatsApp</span>
+      </a>
 
-    <!-- WhatsApp -->
-    <a href="https://wa.me/19392441627?text=Hola%2C%20me%20interesa%20informaci%C3%B3n%20sobre%20sus%20servicios%20de%20planillas."
-       target="_blank" rel="noopener"
-       class="float-btn flex items-center gap-2 bg-green-500 text-white font-heading font-bold px-4 py-3 rounded-full shadow-xl text-sm pulse-dot">
-      <i class="fab fa-whatsapp text-xl"></i>
-      <span class="hidden sm:inline">WhatsApp</span>
-    </a>
+      <!-- Facebook Messenger -->
+      <a
+        href="https://m.me/drodrigueztaxservices"
+        target="_blank"
+        rel="noopener"
+        class="float-btn flex items-center gap-2 bg-blue-600 text-white font-heading font-bold px-4 py-3 rounded-full shadow-xl text-sm"
+      >
+        <i class="fab fa-facebook-messenger text-xl"></i>
+        <span class="hidden sm:inline">Messenger</span>
+      </a>
 
-    <!-- Facebook Messenger -->
-    <a href="https://m.me/drodrigueztaxservices"
-       target="_blank" rel="noopener"
-       class="float-btn flex items-center gap-2 bg-blue-600 text-white font-heading font-bold px-4 py-3 rounded-full shadow-xl text-sm">
-      <i class="fab fa-facebook-messenger text-xl"></i>
-      <span class="hidden sm:inline">Messenger</span>
-    </a>
+      <!-- Phone -->
+      <a
+        href="tel:+17876455074"
+        class="float-btn flex items-center gap-2 bg-primary text-white font-heading font-bold px-4 py-3 rounded-full shadow-xl text-sm"
+      >
+        <i class="fas fa-phone text-xl"></i>
+        <span class="hidden sm:inline">Llamar</span>
+      </a>
+    </div>
 
-    <!-- Phone -->
-    <a href="tel:+17876455074"
-       class="float-btn flex items-center gap-2 bg-primary text-white font-heading font-bold px-4 py-3 rounded-full shadow-xl text-sm">
-      <i class="fas fa-phone text-xl"></i>
-      <span class="hidden sm:inline">Llamar</span>
-    </a>
-
-  </div>
-
-  <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════
        ANNOUNCEMENT TICKER
   ═══════════════════════════════════════════ -->
-  <div id="ticker" class="bg-accent text-dark-navy font-heading font-bold sticky top-0 z-50 flex items-center overflow-hidden text-sm sm:text-base">
-    <div class="ticker-wrap w-full">
-      <span class="ticker-inner px-8">
-        🎉 ¡Tax Season está aquí! &nbsp;|&nbsp;
-        📅 Planilla Federal disponible desde el 26 de enero &nbsp;|&nbsp;
-        💰 Recibe hasta $1,700 por dependiente (0-16 años) &nbsp;|&nbsp;
-        📞 Llama ahora: 939.244.1627 / 787.645.5074 &nbsp;|&nbsp;
-        ✅ IRS Authorized e-file Provider &nbsp;|&nbsp;
-        🏛️ Certified Hacienda Puerto Rico &nbsp;|&nbsp;
-        🏢 Servicios de Incorporación LLC disponibles &nbsp;|&nbsp;
-        📧 rodriguez.taxgroup1@gmail.com &nbsp;|&nbsp;
-      </span>
+    <div
+      id="ticker"
+      class="bg-accent text-dark-navy font-heading font-bold sticky top-0 z-50 flex items-center overflow-hidden text-sm sm:text-base"
+    >
+      <div class="ticker-wrap w-full">
+        <span class="ticker-inner px-8">
+          🎉 ¡Tax Season está aquí! &nbsp;|&nbsp; 📅 Planilla Federal disponible
+          desde el 26 de enero &nbsp;|&nbsp; 💰 Recibe hasta $1,700 por
+          dependiente (0-16 años) &nbsp;|&nbsp; 📞 Llama ahora: 939.244.1627 /
+          787.645.5074 &nbsp;|&nbsp; ✅ IRS Authorized e-file Provider
+          &nbsp;|&nbsp; 🏛️ Certified Hacienda Puerto Rico &nbsp;|&nbsp; 🏢
+          Servicios de Incorporación LLC disponibles &nbsp;|&nbsp; 📧
+          rodriguez.taxgroup1@gmail.com &nbsp;|&nbsp;
+        </span>
+      </div>
     </div>
-  </div>
 
-  <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════
        NAVIGATION BAR
   ═══════════════════════════════════════════ -->
-  <nav id="navbar" class="fixed top-[42px] left-0 right-0 z-40 bg-dark/90 backdrop-blur-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-20">
+    <nav
+      id="navbar"
+      class="fixed top-[42px] left-0 right-0 z-40 bg-dark/90 backdrop-blur-sm"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-20"
+      >
+        <!-- Logo (opens modal) -->
+        <button
+          id="logo-trigger"
+          class="flex items-center gap-3 focus:outline-none"
+        >
+          <img
+            src="logo.png"
+            alt="Rodríguez Tax Services Logo"
+            class="h-14 w-14 rounded-full object-cover border-2 border-accent"
+          />
+          <div class="leading-tight text-left">
+            <p
+              class="text-white font-heading font-extrabold text-sm leading-tight tracking-wide"
+            >
+              Rodríguez Tax Services
+            </p>
+            <p
+              class="text-accent font-heading font-bold text-xs tracking-wider"
+            >
+              & Accounting Group
+            </p>
+          </div>
+        </button>
 
-      <!-- Logo (opens modal) -->
-      <button id="logo-trigger" class="flex items-center gap-3 focus:outline-none">
-        <img src="images/logo" alt="Rodríguez Tax Services Logo"
-             class="h-14 w-14 rounded-full object-cover border-2 border-accent" />
-        <div class="leading-tight text-left">
-          <p class="text-white font-heading font-extrabold text-sm leading-tight tracking-wide">Rodríguez Tax Services</p>
-          <p class="text-accent font-heading font-bold text-xs tracking-wider">& Accounting Group</p>
-        </div>
-      </button>
+        <!-- Desktop Nav Links -->
+        <ul
+          class="hidden md:flex items-center gap-6 font-heading font-semibold text-sm text-white"
+        >
+          <li>
+            <a href="#servicios" class="hover:text-accent transition"
+              >Servicios</a
+            >
+          </li>
+          <li>
+            <a href="#llc" class="hover:text-accent transition"
+              >Incorporación LLC</a
+            >
+          </li>
+          <li>
+            <a href="#beneficios" class="hover:text-accent transition"
+              >Beneficios</a
+            >
+          </li>
+          <li>
+            <a href="#nosotros" class="hover:text-accent transition"
+              >Nosotros</a
+            >
+          </li>
+          <li>
+            <a href="#contacto" class="hover:text-accent transition"
+              >Contacto</a
+            >
+          </li>
+        </ul>
 
-      <!-- Desktop Nav Links -->
-      <ul class="hidden md:flex items-center gap-6 font-heading font-semibold text-sm text-white">
-        <li><a href="#servicios" class="hover:text-accent transition">Servicios</a></li>
-        <li><a href="#llc" class="hover:text-accent transition">Incorporación LLC</a></li>
-        <li><a href="#beneficios" class="hover:text-accent transition">Beneficios</a></li>
-        <li><a href="#nosotros" class="hover:text-accent transition">Nosotros</a></li>
-        <li><a href="#contacto" class="hover:text-accent transition">Contacto</a></li>
-      </ul>
+        <!-- CTA Button -->
+        <a
+          href="https://wa.me/19392441627?text=Hola%2C%20quiero%20agendar%20una%20cita."
+          target="_blank"
+          rel="noopener"
+          class="hidden sm:flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-navy font-heading font-extrabold text-xs px-4 py-2 rounded-full transition shadow-md"
+        >
+          <i class="fab fa-whatsapp"></i> AGENDAR CITA
+        </a>
 
-      <!-- CTA Button -->
-      <a href="https://wa.me/19392441627?text=Hola%2C%20quiero%20agendar%20una%20cita."
-         target="_blank" rel="noopener"
-         class="hidden sm:flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-navy font-heading font-extrabold text-xs px-4 py-2 rounded-full transition shadow-md">
-        <i class="fab fa-whatsapp"></i> AGENDAR CITA
-      </a>
+        <!-- Mobile Menu Toggle -->
+        <button
+          id="menu-toggle"
+          class="md:hidden text-white text-2xl focus:outline-none"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
 
-      <!-- Mobile Menu Toggle -->
-      <button id="menu-toggle" class="md:hidden text-white text-2xl focus:outline-none">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-dark px-6 pb-4 space-y-3 border-t border-primary-soft/20"
+      >
+        <a
+          href="#servicios"
+          class="block text-white font-heading font-semibold py-2 hover:text-accent transition"
+          >Servicios</a
+        >
+        <a
+          href="#llc"
+          class="block text-white font-heading font-semibold py-2 hover:text-accent transition"
+          >Incorporación LLC</a
+        >
+        <a
+          href="#beneficios"
+          class="block text-white font-heading font-semibold py-2 hover:text-accent transition"
+          >Beneficios</a
+        >
+        <a
+          href="#nosotros"
+          class="block text-white font-heading font-semibold py-2 hover:text-accent transition"
+          >Nosotros</a
+        >
+        <a
+          href="#contacto"
+          class="block text-white font-heading font-semibold py-2 hover:text-accent transition"
+          >Contacto</a
+        >
+        <a
+          href="https://wa.me/19392441627"
+          target="_blank"
+          class="flex items-center gap-2 bg-accent text-dark-navy font-heading font-extrabold text-sm px-4 py-2 rounded-full w-fit mt-2"
+        >
+          <i class="fab fa-whatsapp"></i> AGENDAR CITA
+        </a>
+      </div>
+    </nav>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-dark px-6 pb-4 space-y-3 border-t border-primary-soft/20">
-      <a href="#servicios"  class="block text-white font-heading font-semibold py-2 hover:text-accent transition">Servicios</a>
-      <a href="#llc"        class="block text-white font-heading font-semibold py-2 hover:text-accent transition">Incorporación LLC</a>
-      <a href="#beneficios" class="block text-white font-heading font-semibold py-2 hover:text-accent transition">Beneficios</a>
-      <a href="#nosotros"   class="block text-white font-heading font-semibold py-2 hover:text-accent transition">Nosotros</a>
-      <a href="#contacto"   class="block text-white font-heading font-semibold py-2 hover:text-accent transition">Contacto</a>
-      <a href="https://wa.me/19392441627" target="_blank"
-         class="flex items-center gap-2 bg-accent text-dark-navy font-heading font-extrabold text-sm px-4 py-2 rounded-full w-fit mt-2">
-        <i class="fab fa-whatsapp"></i> AGENDAR CITA
-      </a>
-    </div>
-  </nav>
-
-  <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════
        HERO SECTION  (Carousel)
   ═══════════════════════════════════════════ -->
-  <section id="hero" class="relative z-10 w-full h-[calc(100vh-42px)] overflow-hidden">
-
-    <!-- Slides wrapper -->
-    <div class="hero-slides relative w-full h-full">
-
-      <!-- Slide 1 — Tax Season -->
-      <div class="hero-slide active items-center justify-center h-full
-                  bg-gradient-to-br from-dark via-primary to-primary-mid">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center text-white space-y-4 md:space-y-6">
-            <span class="inline-block bg-accent text-dark-navy font-heading font-extrabold text-xs px-4 py-1 rounded-full tracking-widest uppercase">
+    <section
+      id="hero"
+      class="relative z-10 w-full h-[calc(100vh-42px)] overflow-hidden"
+    >
+      <!-- Slides wrapper -->
+      <div class="hero-slides relative w-full h-full">
+        <!-- Slide 1 — Tax Season -->
+        <div
+          class="hero-slide active items-center justify-center h-full bg-gradient-to-br from-dark via-primary to-primary-mid"
+        >
+          <div
+            class="max-w-3xl mx-auto px-4 sm:px-6 text-center text-white space-y-4 md:space-y-6"
+          >
+            <span
+              class="inline-block bg-accent text-dark-navy font-heading font-extrabold text-xs px-4 py-1 rounded-full tracking-widest uppercase"
+            >
               🕐 Tax Season 2025
             </span>
-            <h1 class="font-heading font-black text-3xl sm:text-4xl md:text-6xl leading-tight">
-              ¡Es <span class="text-accent">Tax Time!</span><br/>Radica con Confianza
+            <h1
+              class="font-heading font-black text-3xl sm:text-4xl md:text-6xl leading-tight"
+            >
+              ¡Es <span class="text-accent">Tax Time!</span><br />Radica con
+              Confianza
             </h1>
             <p class="text-primary-pale text-base sm:text-lg leading-relaxed">
-              Brindamos la seguridad y confianza que necesitas en tus procesos contables.<br/>
-              <strong class="text-white">Planillas Estatales, Federales y de Negocio.</strong>
+              Brindamos la seguridad y confianza que necesitas en tus procesos
+              contables.<br />
+              <strong class="text-white"
+                >Planillas Estatales, Federales y de Negocio.</strong
+              >
             </p>
             <div class="flex flex-wrap justify-center gap-3 sm:gap-4 pt-2">
-              <a href="https://wa.me/19392441627?text=Hola%2C%20quiero%20radicar%20mi%20planilla."
-                 target="_blank"
-                 class="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-heading font-bold px-5 sm:px-6 py-3 rounded-full shadow-lg transition text-sm">
-                <i class="fab fa-whatsapp text-lg"></i> <span class="hidden xs:inline">Escríbenos por</span> WhatsApp
+              <a
+                href="https://wa.me/19392441627?text=Hola%2C%20quiero%20radicar%20mi%20planilla."
+                target="_blank"
+                class="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-heading font-bold px-5 sm:px-6 py-3 rounded-full shadow-lg transition text-sm"
+              >
+                <i class="fab fa-whatsapp text-lg"></i>
+                <span class="hidden xs:inline">Escríbenos por</span> WhatsApp
               </a>
-              <a href="tel:+19392441627"
-                 class="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-heading font-bold px-5 sm:px-6 py-3 rounded-full transition text-sm">
+              <a
+                href="tel:+19392441627"
+                class="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-heading font-bold px-5 sm:px-6 py-3 rounded-full transition text-sm"
+              >
                 <i class="fas fa-phone"></i> 939.244.1627
               </a>
             </div>
-        </div>
-      </div>
-
-      <!-- Slide 2 — Planillas sin Estrés -->
-      <div class="hero-slide items-center justify-center h-full
-                  bg-gradient-to-br from-primary to-dark">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <div class="text-white space-y-4 md:space-y-6">
-            <h1 class="font-heading font-black text-3xl sm:text-4xl md:text-5xl leading-tight">
-              Planillas <span class="text-accent">Sin Estrés</span>
-            </h1>
-            <p class="text-primary-pale text-base sm:text-lg">
-              Radica tu planilla con confianza y recibe mucho más que un documento lleno.
-            </p>
-            <ul class="space-y-2 sm:space-y-3 text-white/90 text-sm sm:text-base">
-              <li class="check-item">Radicación estatal y federal</li>
-              <li class="check-item">Asistencia personalizada</li>
-              <li class="check-item">Apoyo todo el año</li>
-              <li class="check-item">Certified Hacienda & IRS</li>
-            </ul>
-            <a href="#contacto"
-               class="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-navy font-heading font-bold px-6 py-3 rounded-full transition text-sm shadow-lg">
-              <i class="fas fa-calendar-check"></i> Agenda tu Espacio
-            </a>
           </div>
         </div>
-      </div>
 
-      <!-- Slide 3 — $1,700 por dependiente -->
-      <div class="hero-slide items-center justify-center h-full
-                  bg-gradient-to-br from-dark-navy via-blue-900 to-primary">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <div class="text-white space-y-4 md:space-y-6">
-            <span class="inline-block bg-accent text-dark-navy font-heading font-extrabold text-xs px-4 py-1 rounded-full tracking-widest uppercase">
-              💰 Crédito Máximo
-            </span>
-            <h1 class="font-heading font-black text-3xl sm:text-4xl md:text-5xl leading-tight">
-              Recibe hasta<br/><span class="text-accent text-5xl sm:text-6xl">$1,700</span><br/>
-              <span class="text-2xl sm:text-3xl">por Dependiente</span>
-            </h1>
-            <div class="bg-white/10 rounded-xl p-5 space-y-2 text-sm text-white/90">
-              <p class="font-heading font-bold text-white text-base mb-2">Requisitos:</p>
-              <p class="check-item">Mínimo 1 dependiente</p>
-              <p class="check-item">Dependiente entre 0-16 años</p>
-              <p class="check-item">Crédito sujeto a retención anual</p>
+        <!-- Slide 2 — Planillas sin Estrés -->
+        <div
+          class="hero-slide items-center justify-center h-full bg-gradient-to-br from-primary to-dark"
+        >
+          <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+            <div class="text-white space-y-4 md:space-y-6">
+              <h1
+                class="font-heading font-black text-3xl sm:text-4xl md:text-5xl leading-tight"
+              >
+                Planillas <span class="text-accent">Sin Estrés</span>
+              </h1>
+              <p class="text-primary-pale text-base sm:text-lg">
+                Radica tu planilla con confianza y recibe mucho más que un
+                documento lleno.
+              </p>
+              <ul
+                class="space-y-2 sm:space-y-3 text-white/90 text-sm sm:text-base"
+              >
+                <li class="check-item">Radicación estatal y federal</li>
+                <li class="check-item">Asistencia personalizada</li>
+                <li class="check-item">Apoyo todo el año</li>
+                <li class="check-item">Certified Hacienda & IRS</li>
+              </ul>
+              <a
+                href="#contacto"
+                class="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-navy font-heading font-bold px-6 py-3 rounded-full transition text-sm shadow-lg"
+              >
+                <i class="fas fa-calendar-check"></i> Agenda tu Espacio
+              </a>
             </div>
-            <a href="https://wa.me/19392441627?text=Hola%2C%20quiero%20saber%20sobre%20el%20cr%C3%A9dito%20por%20dependiente."
-               target="_blank"
-               class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-heading font-bold px-6 py-3 rounded-full shadow-lg transition text-sm">
-              <i class="fab fa-whatsapp text-lg"></i> Consultar Ahora
-            </a>
+          </div>
+        </div>
+
+        <!-- Slide 3 — $1,700 por dependiente -->
+        <div
+          class="hero-slide items-center justify-center h-full bg-gradient-to-br from-dark-navy via-blue-900 to-primary"
+        >
+          <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+            <div class="text-white space-y-4 md:space-y-6">
+              <span
+                class="inline-block bg-accent text-dark-navy font-heading font-extrabold text-xs px-4 py-1 rounded-full tracking-widest uppercase"
+              >
+                💰 Crédito Máximo
+              </span>
+              <h1
+                class="font-heading font-black text-3xl sm:text-4xl md:text-5xl leading-tight"
+              >
+                Recibe hasta<br /><span class="text-accent text-5xl sm:text-6xl"
+                  >$1,700</span
+                ><br />
+                <span class="text-2xl sm:text-3xl">por Dependiente</span>
+              </h1>
+              <div
+                class="bg-white/10 rounded-xl p-5 space-y-2 text-sm text-white/90"
+              >
+                <p class="font-heading font-bold text-white text-base mb-2">
+                  Requisitos:
+                </p>
+                <p class="check-item">Mínimo 1 dependiente</p>
+                <p class="check-item">Dependiente entre 0-16 años</p>
+                <p class="check-item">Crédito sujeto a retención anual</p>
+              </div>
+              <a
+                href="https://wa.me/19392441627?text=Hola%2C%20quiero%20saber%20sobre%20el%20cr%C3%A9dito%20por%20dependiente."
+                target="_blank"
+                class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-heading font-bold px-6 py-3 rounded-full shadow-lg transition text-sm"
+              >
+                <i class="fab fa-whatsapp text-lg"></i> Consultar Ahora
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 — ¿Cuánto te corresponde? -->
+        <div
+          class="hero-slide items-center justify-center h-full bg-gradient-to-br from-gray-900 via-primary to-dark"
+        >
+          <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+            <div class="text-white space-y-4 md:space-y-6">
+              <h1
+                class="font-heading font-black text-3xl sm:text-4xl md:text-5xl leading-tight"
+              >
+                ¿Quieres saber
+                <span class="text-accent">cuánto te corresponde</span> a TI?
+              </h1>
+              <p class="text-primary-pale text-base sm:text-lg">
+                No dejes pasar tus beneficios:
+              </p>
+              <ul
+                class="space-y-2 sm:space-y-3 text-white/90 text-sm sm:text-base"
+              >
+                <li class="check-item">
+                  Especialistas en planillas de Puerto Rico
+                </li>
+                <li class="check-item">Radicación electrónica</li>
+                <li class="check-item">
+                  Evaluación correcta de créditos contributivos
+                </li>
+              </ul>
+              <a
+                href="#contacto"
+                class="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-navy font-heading font-bold px-6 py-3 rounded-full transition text-sm shadow-lg"
+              >
+                <i class="fas fa-search-dollar"></i> Evalúa tus Créditos
+              </a>
+            </div>
           </div>
         </div>
       </div>
+      <!-- /hero-slides -->
 
-      <!-- Slide 4 — ¿Cuánto te corresponde? -->
-      <div class="hero-slide items-center justify-center h-full
-                  bg-gradient-to-br from-gray-900 via-primary to-dark">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <div class="text-white space-y-4 md:space-y-6">
-            <h1 class="font-heading font-black text-3xl sm:text-4xl md:text-5xl leading-tight">
-              ¿Quieres saber <span class="text-accent">cuánto te corresponde</span> a TI?
-            </h1>
-            <p class="text-primary-pale text-base sm:text-lg">No dejes pasar tus beneficios:</p>
-            <ul class="space-y-2 sm:space-y-3 text-white/90 text-sm sm:text-base">
-              <li class="check-item">Especialistas en planillas de Puerto Rico</li>
-              <li class="check-item">Radicación electrónica</li>
-              <li class="check-item">Evaluación correcta de créditos contributivos</li>
-            </ul>
-            <a href="#contacto"
-               class="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-navy font-heading font-bold px-6 py-3 rounded-full transition text-sm shadow-lg">
-              <i class="fas fa-search-dollar"></i> Evalúa tus Créditos
-            </a>
-          </div>
-        </div>
+      <!-- Carousel dots -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+        <button
+          class="hero-dot w-3 h-3 rounded-full bg-accent transition-all scale-125"
+          data-index="0"
+        ></button>
+        <button
+          class="hero-dot w-3 h-3 rounded-full bg-white/40 transition-all"
+          data-index="1"
+        ></button>
+        <button
+          class="hero-dot w-3 h-3 rounded-full bg-white/40 transition-all"
+          data-index="2"
+        ></button>
+        <button
+          class="hero-dot w-3 h-3 rounded-full bg-white/40 transition-all"
+          data-index="3"
+        ></button>
       </div>
 
-    </div><!-- /hero-slides -->
+      <!-- Prev / Next arrows -->
+      <button
+        id="hero-prev"
+        class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition backdrop-blur-sm text-sm sm:text-base"
+      >
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button
+        id="hero-next"
+        class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition backdrop-blur-sm text-sm sm:text-base"
+      >
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </section>
 
-    <!-- Carousel dots -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
-      <button class="hero-dot w-3 h-3 rounded-full bg-accent transition-all scale-125" data-index="0"></button>
-      <button class="hero-dot w-3 h-3 rounded-full bg-white/40 transition-all" data-index="1"></button>
-      <button class="hero-dot w-3 h-3 rounded-full bg-white/40 transition-all" data-index="2"></button>
-      <button class="hero-dot w-3 h-3 rounded-full bg-white/40 transition-all" data-index="3"></button>
-    </div>
-
-    <!-- Prev / Next arrows -->
-    <button id="hero-prev" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10
-           bg-black/30 hover:bg-black/50 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full
-           flex items-center justify-center transition backdrop-blur-sm text-sm sm:text-base">
-      <i class="fas fa-chevron-left"></i>
-    </button>
-    <button id="hero-next" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10
-           bg-black/30 hover:bg-black/50 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full
-           flex items-center justify-center transition backdrop-blur-sm text-sm sm:text-base">
-      <i class="fas fa-chevron-right"></i>
-    </button>
-
-  </section>
-
-  <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════
        TRUST BAR
   ═══════════════════════════════════════════ -->
-  <div class="bg-primary py-6 md:py-8">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center text-white">
-      <div class="space-y-1">
-        <div class="text-3xl font-heading font-black text-accent">✅</div>
-        <p class="font-heading font-bold text-base">Certified IRS<br/>e-file Provider</p>
-      </div>
-      <div class="space-y-1">
-        <div class="text-3xl font-heading font-black text-accent">🏛️</div>
-        <p class="font-heading font-bold text-base">Certified<br/>Hacienda PR</p>
-      </div>
-      <div class="space-y-1">
-        <div class="text-3xl font-heading font-black text-accent">📋</div>
-        <p class="font-heading font-bold text-base">Planillas Estatales<br/>Federales y Negocio</p>
-      </div>
-      <div class="space-y-1">
-        <div class="text-3xl font-heading font-black text-accent">🏢</div>
-        <p class="font-heading font-bold text-base">Incorporación LLC<br/>y Corporaciones</p>
+    <div class="bg-primary py-6 md:py-8">
+      <div
+        class="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center text-white"
+      >
+        <div class="space-y-1">
+          <div class="text-3xl font-heading font-black text-accent">✅</div>
+          <p class="font-heading font-bold text-base">
+            Certified IRS<br />e-file Provider
+          </p>
+        </div>
+        <div class="space-y-1">
+          <div class="text-3xl font-heading font-black text-accent">🏛️</div>
+          <p class="font-heading font-bold text-base">
+            Certified<br />Hacienda PR
+          </p>
+        </div>
+        <div class="space-y-1">
+          <div class="text-3xl font-heading font-black text-accent">📋</div>
+          <p class="font-heading font-bold text-base">
+            Planillas Estatales<br />Federales y Negocio
+          </p>
+        </div>
+        <div class="space-y-1">
+          <div class="text-3xl font-heading font-black text-accent">🏢</div>
+          <p class="font-heading font-bold text-base">
+            Incorporación LLC<br />y Corporaciones
+          </p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════
        SERVICES SECTION
   ═══════════════════════════════════════════ -->
-  <section id="servicios" class="py-12 md:py-20 bg-neutral-light">
-    <div class="max-w-7xl mx-auto px-6">
+    <section id="servicios" class="py-12 md:py-20 bg-neutral-light">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-14">
+          <span
+            class="inline-block bg-primary-soft text-white font-heading font-bold text-xs px-4 py-1 rounded-full tracking-widest uppercase mb-3"
+          >
+            Nuestros Servicios
+          </span>
+          <h2 class="font-heading font-black text-4xl md:text-5xl text-primary">
+            Todo lo que Necesitas
+            <span class="text-accent-dark">en un Solo Lugar</span>
+          </h2>
+          <p class="text-gray-500 mt-3 max-w-xl mx-auto text-base sm:text-lg">
+            Más de un servicio, toda la confianza. Somos tus aliados en
+            planillas, contabilidad y cumplimiento corporativo.
+          </p>
+        </div>
 
-      <div class="text-center mb-14">
-        <span class="inline-block bg-primary-soft text-white font-heading font-bold text-xs px-4 py-1 rounded-full tracking-widest uppercase mb-3">
-          Nuestros Servicios
-        </span>
-        <h2 class="font-heading font-black text-4xl md:text-5xl text-primary">
-          Todo lo que Necesitas <span class="text-accent-dark">en un Solo Lugar</span>
-        </h2>
-        <p class="text-gray-500 mt-3 max-w-xl mx-auto text-base sm:text-lg">
-          Más de un servicio, toda la confianza. Somos tus aliados en planillas, contabilidad y cumplimiento corporativo.
-        </p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
+          <!-- Card 1 -->
+          <div
+            class="service-card bg-white rounded-2xl p-7 shadow-md border border-neutral-mid"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-primary-soft/20 flex items-center justify-center mb-5"
+            >
+              <i class="fas fa-file-invoice-dollar text-primary text-2xl"></i>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-primary mb-3">
+              Planilla Estatal PR
+            </h3>
+            <p class="text-gray-600 text-base leading-relaxed">
+              Radicación de planilla de Hacienda de Puerto Rico con asistencia
+              completa y orientación personalizada. Maximizamos tus créditos
+              contributivos.
+            </p>
+            <a
+              href="#contacto"
+              class="mt-5 inline-block text-primary font-heading font-bold text-sm hover:text-accent-dark transition"
+            >
+              Más información →
+            </a>
+          </div>
+
+          <!-- Card 2 -->
+          <div
+            class="service-card bg-white rounded-2xl p-7 shadow-md border border-neutral-mid"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-5"
+            >
+              <i class="fas fa-landmark text-accent-dark text-2xl"></i>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-primary mb-3">
+              Planilla Federal IRS
+            </h3>
+            <p class="text-gray-600 text-base leading-relaxed">
+              Preparación y radicación electrónica de planilla federal ante el
+              IRS. Authorized e-file Provider. Recibe hasta
+              <strong class="text-primary">$1,700 por dependiente</strong>.
+            </p>
+            <a
+              href="#contacto"
+              class="mt-5 inline-block text-primary font-heading font-bold text-sm hover:text-accent-dark transition"
+            >
+              Más información →
+            </a>
+          </div>
+
+          <!-- Card 3 -->
+          <div
+            class="service-card bg-white rounded-2xl p-7 shadow-md border border-neutral-mid"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center mb-5"
+            >
+              <i class="fas fa-briefcase text-blue-700 text-2xl"></i>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-primary mb-3">
+              Planilla de Negocio
+            </h3>
+            <p class="text-gray-600 text-base leading-relaxed">
+              Contabilidad para negocios, planillas corporativas y de trabajo
+              por cuenta propia. Cumplimiento total con Hacienda e IRS.
+            </p>
+            <a
+              href="#contacto"
+              class="mt-5 inline-block text-primary font-heading font-bold text-sm hover:text-accent-dark transition"
+            >
+              Más información →
+            </a>
+          </div>
+
+          <!-- Card 4 -->
+          <div
+            class="service-card bg-white rounded-2xl p-7 shadow-md border border-neutral-mid"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-green-100 flex items-center justify-center mb-5"
+            >
+              <i class="fas fa-building text-primary text-2xl"></i>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-primary mb-3">
+              Incorporación LLC
+            </h3>
+            <p class="text-gray-600 text-base leading-relaxed">
+              Registro de LLC, EIN, SURI, BOI, resolución corporativa, contrato
+              de operaciones y Operating Agreement.
+            </p>
+            <a
+              href="#llc"
+              class="mt-5 inline-block text-primary font-heading font-bold text-sm hover:text-accent-dark transition"
+            >
+              Ver detalles →
+            </a>
+          </div>
+
+          <!-- Card 5 -->
+          <div
+            class="service-card bg-white rounded-2xl p-7 shadow-md border border-neutral-mid"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-yellow-100 flex items-center justify-center mb-5"
+            >
+              <i class="fas fa-id-card text-yellow-700 text-2xl"></i>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-primary mb-3">
+              Permisos y Licencias
+            </h3>
+            <p class="text-gray-600 text-base leading-relaxed">
+              Permiso Único, Patente Municipal, Seguro Social Patronal, Creación
+              de Corporación y Registro de Comerciante.
+            </p>
+            <a
+              href="#contacto"
+              class="mt-5 inline-block text-primary font-heading font-bold text-sm hover:text-accent-dark transition"
+            >
+              Más información →
+            </a>
+          </div>
+
+          <!-- Card 6 -->
+          <div
+            class="service-card bg-primary rounded-2xl p-7 shadow-md text-white"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center mb-5"
+            >
+              <i class="fas fa-headset text-white text-2xl"></i>
+            </div>
+            <h3 class="font-heading font-bold text-lg mb-3">
+              Asesoría Personalizada
+            </h3>
+            <p class="text-primary-pale text-base leading-relaxed">
+              Apoyo durante todo el año. No solo durante la temporada de taxes.
+              Tu tranquilidad es nuestra prioridad.
+            </p>
+            <a
+              href="https://wa.me/19392441627?text=Hola%2C%20necesito%20asesor%C3%ADa."
+              target="_blank"
+              class="mt-5 inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-navy font-heading font-bold text-sm px-4 py-2 rounded-full transition"
+            >
+              <i class="fab fa-whatsapp"></i> Consultar Gratis
+            </a>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
-
-        <!-- Card 1 -->
-        <div class="service-card bg-white rounded-2xl p-7 shadow-md border border-neutral-mid">
-          <div class="w-14 h-14 rounded-xl bg-primary-soft/20 flex items-center justify-center mb-5">
-            <i class="fas fa-file-invoice-dollar text-primary text-2xl"></i>
-          </div>
-          <h3 class="font-heading font-bold text-xl text-primary mb-3">Planilla Estatal PR</h3>
-          <p class="text-gray-600 text-base leading-relaxed">
-            Radicación de planilla de Hacienda de Puerto Rico con asistencia completa y orientación personalizada.
-            Maximizamos tus créditos contributivos.
-          </p>
-          <a href="#contacto" class="mt-5 inline-block text-primary font-heading font-bold text-sm hover:text-accent-dark transition">
-            Más información →
-          </a>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="service-card bg-white rounded-2xl p-7 shadow-md border border-neutral-mid">
-          <div class="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-5">
-            <i class="fas fa-landmark text-accent-dark text-2xl"></i>
-          </div>
-          <h3 class="font-heading font-bold text-xl text-primary mb-3">Planilla Federal IRS</h3>
-          <p class="text-gray-600 text-base leading-relaxed">
-            Preparación y radicación electrónica de planilla federal ante el IRS. Authorized e-file Provider.
-            Recibe hasta <strong class="text-primary">$1,700 por dependiente</strong>.
-          </p>
-          <a href="#contacto" class="mt-5 inline-block text-primary font-heading font-bold text-sm hover:text-accent-dark transition">
-            Más información →
-          </a>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="service-card bg-white rounded-2xl p-7 shadow-md border border-neutral-mid">
-          <div class="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center mb-5">
-            <i class="fas fa-briefcase text-blue-700 text-2xl"></i>
-          </div>
-          <h3 class="font-heading font-bold text-xl text-primary mb-3">Planilla de Negocio</h3>
-          <p class="text-gray-600 text-base leading-relaxed">
-            Contabilidad para negocios, planillas corporativas y de trabajo por cuenta propia. Cumplimiento total con Hacienda e IRS.
-          </p>
-          <a href="#contacto" class="mt-5 inline-block text-primary font-heading font-bold text-sm hover:text-accent-dark transition">
-            Más información →
-          </a>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="service-card bg-white rounded-2xl p-7 shadow-md border border-neutral-mid">
-          <div class="w-14 h-14 rounded-xl bg-green-100 flex items-center justify-center mb-5">
-            <i class="fas fa-building text-primary text-2xl"></i>
-          </div>
-          <h3 class="font-heading font-bold text-xl text-primary mb-3">Incorporación LLC</h3>
-          <p class="text-gray-600 text-base leading-relaxed">
-            Registro de LLC, EIN, SURI, BOI, resolución corporativa, contrato de operaciones y Operating Agreement.
-          </p>
-          <a href="#llc" class="mt-5 inline-block text-primary font-heading font-bold text-sm hover:text-accent-dark transition">
-            Ver detalles →
-          </a>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="service-card bg-white rounded-2xl p-7 shadow-md border border-neutral-mid">
-          <div class="w-14 h-14 rounded-xl bg-yellow-100 flex items-center justify-center mb-5">
-            <i class="fas fa-id-card text-yellow-700 text-2xl"></i>
-          </div>
-          <h3 class="font-heading font-bold text-xl text-primary mb-3">Permisos y Licencias</h3>
-          <p class="text-gray-600 text-base leading-relaxed">
-            Permiso Único, Patente Municipal, Seguro Social Patronal, Creación de Corporación y Registro de Comerciante.
-          </p>
-          <a href="#contacto" class="mt-5 inline-block text-primary font-heading font-bold text-sm hover:text-accent-dark transition">
-            Más información →
-          </a>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="service-card bg-primary rounded-2xl p-7 shadow-md text-white">
-          <div class="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center mb-5">
-            <i class="fas fa-headset text-white text-2xl"></i>
-          </div>
-          <h3 class="font-heading font-bold text-lg mb-3">Asesoría Personalizada</h3>
-          <p class="text-primary-pale text-base leading-relaxed">
-            Apoyo durante todo el año. No solo durante la temporada de taxes. Tu tranquilidad es nuestra prioridad.
-          </p>
-          <a href="https://wa.me/19392441627?text=Hola%2C%20necesito%20asesor%C3%ADa."
-             target="_blank"
-             class="mt-5 inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-navy font-heading font-bold text-sm px-4 py-2 rounded-full transition">
-            <i class="fab fa-whatsapp"></i> Consultar Gratis
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════
        PROMO CAROUSEL — Announcements
   ═══════════════════════════════════════════ -->
-  <section class="py-10 md:py-16 bg-dark overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-10">
-        <span class="inline-block bg-accent text-dark-navy font-heading font-extrabold text-xs px-4 py-1 rounded-full tracking-widest uppercase mb-3">
-          📢 Anuncios
-        </span>
-        <h2 class="font-heading font-black text-4xl text-white">
-          Información <span class="text-accent">Importante</span>
-        </h2>
-      </div>
+    <section class="py-10 md:py-16 bg-dark overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-10">
+          <span
+            class="inline-block bg-accent text-dark-navy font-heading font-extrabold text-xs px-4 py-1 rounded-full tracking-widest uppercase mb-3"
+          >
+            📢 Anuncios
+          </span>
+          <h2 class="font-heading font-black text-4xl text-white">
+            Información <span class="text-accent">Importante</span>
+          </h2>
+        </div>
 
-      <div class="relative">
-        <div class="overflow-hidden rounded-2xl mx-12 sm:mx-16">
-        <div id="promo-track" class="promo-track">
-
-          <!-- Promo 1 -->
-          <div class="promo-card">
-            <div class="bg-gradient-to-br from-blue-900 to-primary rounded-2xl overflow-hidden shadow-2xl">
-              <div class="p-6 sm:p-8 md:p-10 flex flex-col justify-center space-y-4">
-                <span class="text-accent font-heading font-bold text-xs uppercase tracking-widest">Anuncio Importante</span>
-                <h3 class="font-heading font-black text-white text-3xl sm:text-4xl leading-tight">
-                  Planilla Federal<br/>disponible desde<br/><span class="text-accent text-4xl sm:text-5xl">26 de Enero</span>
-                </h3>
-                <p class="text-white/80 text-base">El IRS comienza a procesar y aceptar las planillas federales a partir del lunes 26 de enero.</p>
-                <a href="https://wa.me/19392441627?text=Quiero%20radicar%20mi%20planilla%20federal."
-                   target="_blank"
-                   class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-heading font-bold text-sm px-5 py-3 rounded-full transition w-fit">
-                  <i class="fab fa-whatsapp"></i> ¡Agenda Ahora!
-                </a>
+        <div class="relative">
+          <div class="overflow-hidden rounded-2xl mx-12 sm:mx-16">
+            <div id="promo-track" class="promo-track">
+              <!-- Promo 1 -->
+              <div class="promo-card">
+                <div
+                  class="bg-gradient-to-br from-blue-900 to-primary rounded-2xl overflow-hidden shadow-2xl"
+                >
+                  <div
+                    class="p-6 sm:p-8 md:p-10 flex flex-col justify-center space-y-4"
+                  >
+                    <span
+                      class="text-accent font-heading font-bold text-xs uppercase tracking-widest"
+                      >Anuncio Importante</span
+                    >
+                    <h3
+                      class="font-heading font-black text-white text-3xl sm:text-4xl leading-tight"
+                    >
+                      Planilla Federal<br />disponible desde<br /><span
+                        class="text-accent text-4xl sm:text-5xl"
+                        >26 de Enero</span
+                      >
+                    </h3>
+                    <p class="text-white/80 text-base">
+                      El IRS comienza a procesar y aceptar las planillas
+                      federales a partir del lunes 26 de enero.
+                    </p>
+                    <a
+                      href="https://wa.me/19392441627?text=Quiero%20radicar%20mi%20planilla%20federal."
+                      target="_blank"
+                      class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-heading font-bold text-sm px-5 py-3 rounded-full transition w-fit"
+                    >
+                      <i class="fab fa-whatsapp"></i> ¡Agenda Ahora!
+                    </a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <!-- Promo 2 -->
-          <div class="promo-card">
-            <div class="bg-gradient-to-br from-primary to-dark rounded-2xl overflow-hidden shadow-2xl">
-              <div class="p-6 sm:p-8 md:p-10 flex flex-col justify-center space-y-4">
-                <span class="text-accent font-heading font-bold text-xs uppercase tracking-widest">💵 Crédito Tributario</span>
-                <h3 class="font-heading font-black text-white text-3xl sm:text-4xl leading-tight">
-                  Llena tu<br/>Planilla Federal<br/><span class="text-accent">y recibe hasta $1,700</span>
-                </h3>
-                <ul class="space-y-2 text-white/80 text-sm">
-                  <li class="check-item text-base">Mínimo 1 dependiente</li>
-                  <li class="check-item text-base">Dependiente entre 0–16 años</li>
-                  <li class="check-item text-base">Crédito sujeto a retención anual</li>
-                </ul>
-                <a href="https://wa.me/19392441627?text=Quiero%20saber%20sobre%20el%20cr%C3%A9dito%20por%20dependiente."
-                   target="_blank"
-                   class="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-navy font-heading font-bold text-sm px-5 py-3 rounded-full transition w-fit">
-                  <i class="fas fa-dollar-sign"></i> Saber Cuánto Me Toca
-                </a>
+              <!-- Promo 2 -->
+              <div class="promo-card">
+                <div
+                  class="bg-gradient-to-br from-primary to-dark rounded-2xl overflow-hidden shadow-2xl"
+                >
+                  <div
+                    class="p-6 sm:p-8 md:p-10 flex flex-col justify-center space-y-4"
+                  >
+                    <span
+                      class="text-accent font-heading font-bold text-xs uppercase tracking-widest"
+                      >💵 Crédito Tributario</span
+                    >
+                    <h3
+                      class="font-heading font-black text-white text-3xl sm:text-4xl leading-tight"
+                    >
+                      Llena tu<br />Planilla Federal<br /><span
+                        class="text-accent"
+                        >y recibe hasta $1,700</span
+                      >
+                    </h3>
+                    <ul class="space-y-2 text-white/80 text-sm">
+                      <li class="check-item text-base">Mínimo 1 dependiente</li>
+                      <li class="check-item text-base">
+                        Dependiente entre 0–16 años
+                      </li>
+                      <li class="check-item text-base">
+                        Crédito sujeto a retención anual
+                      </li>
+                    </ul>
+                    <a
+                      href="https://wa.me/19392441627?text=Quiero%20saber%20sobre%20el%20cr%C3%A9dito%20por%20dependiente."
+                      target="_blank"
+                      class="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-dark-navy font-heading font-bold text-sm px-5 py-3 rounded-full transition w-fit"
+                    >
+                      <i class="fas fa-dollar-sign"></i> Saber Cuánto Me Toca
+                    </a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <!-- Promo 3 -->
-          <div class="promo-card">
-            <div class="bg-gradient-to-br from-dark via-green-950 to-primary rounded-2xl overflow-hidden shadow-2xl">
-              <div class="p-6 sm:p-8 md:p-10 flex flex-col justify-center space-y-4">
-                <span class="text-accent font-heading font-bold text-xs uppercase tracking-widest">📱 Contáctanos</span>
-                <h3 class="font-heading font-black text-white text-3xl sm:text-4xl leading-tight">
-                  ¡Radica tus<br/>Planillas<br/><span class="text-accent">con Nosotros!</span>
-                </h3>
-                <p class="text-white/80 text-base">Planilla Estatal PR, Federal IRS y de Negocio. Orientación y asistencia personalizada.</p>
-                <div class="flex flex-col gap-2">
-                  <a href="tel:+19392441627"
-                     class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-heading font-bold text-sm px-4 py-2 rounded-full transition hover:bg-white/20 w-fit">
-                    <i class="fas fa-phone"></i> 939.244.1627
-                  </a>
-                  <a href="tel:+17876455074"
-                     class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-heading font-bold text-sm px-4 py-2 rounded-full transition hover:bg-white/20 w-fit">
-                    <i class="fas fa-phone"></i> 787.645.5074
-                  </a>
+              <!-- Promo 3 -->
+              <div class="promo-card">
+                <div
+                  class="bg-gradient-to-br from-dark via-green-950 to-primary rounded-2xl overflow-hidden shadow-2xl"
+                >
+                  <div
+                    class="p-6 sm:p-8 md:p-10 flex flex-col justify-center space-y-4"
+                  >
+                    <span
+                      class="text-accent font-heading font-bold text-xs uppercase tracking-widest"
+                      >📱 Contáctanos</span
+                    >
+                    <h3
+                      class="font-heading font-black text-white text-3xl sm:text-4xl leading-tight"
+                    >
+                      ¡Radica tus<br />Planillas<br /><span class="text-accent"
+                        >con Nosotros!</span
+                      >
+                    </h3>
+                    <p class="text-white/80 text-base">
+                      Planilla Estatal PR, Federal IRS y de Negocio. Orientación
+                      y asistencia personalizada.
+                    </p>
+                    <div class="flex flex-col gap-2">
+                      <a
+                        href="tel:+19392441627"
+                        class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-heading font-bold text-sm px-4 py-2 rounded-full transition hover:bg-white/20 w-fit"
+                      >
+                        <i class="fas fa-phone"></i> 939.244.1627
+                      </a>
+                      <a
+                        href="tel:+17876455074"
+                        class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-heading font-bold text-sm px-4 py-2 rounded-full transition hover:bg-white/20 w-fit"
+                      >
+                        <i class="fas fa-phone"></i> 787.645.5074
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            <!-- /promo-track -->
           </div>
+          <!-- /overflow-hidden inner wrapper -->
 
-        </div><!-- /promo-track -->
-        </div><!-- /overflow-hidden inner wrapper -->
+          <!-- Promo Arrows — outside the overflow area, in the mx-12/mx-16 margin zones -->
+          <button
+            id="promo-prev"
+            class="absolute left-0 sm:left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition z-10 shadow-lg"
+          >
+            <i class="fas fa-chevron-left text-lg"></i>
+          </button>
+          <button
+            id="promo-next"
+            class="absolute right-0 sm:right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition z-10 shadow-lg"
+          >
+            <i class="fas fa-chevron-right text-lg"></i>
+          </button>
+        </div>
 
-        <!-- Promo Arrows — outside the overflow area, in the mx-12/mx-16 margin zones -->
-        <button id="promo-prev"
-                class="absolute left-0 sm:left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition z-10 shadow-lg">
-          <i class="fas fa-chevron-left text-lg"></i>
-        </button>
-        <button id="promo-next"
-                class="absolute right-0 sm:right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition z-10 shadow-lg">
-          <i class="fas fa-chevron-right text-lg"></i>
-        </button>
+        <!-- Promo Dots -->
+        <div class="flex justify-center gap-2 mt-6">
+          <button
+            class="promo-dot w-3 h-3 rounded-full bg-accent scale-125 transition"
+            data-index="0"
+          ></button>
+          <button
+            class="promo-dot w-3 h-3 rounded-full bg-white/30 transition"
+            data-index="1"
+          ></button>
+          <button
+            class="promo-dot w-3 h-3 rounded-full bg-white/30 transition"
+            data-index="2"
+          ></button>
+        </div>
       </div>
+    </section>
 
-      <!-- Promo Dots -->
-      <div class="flex justify-center gap-2 mt-6">
-        <button class="promo-dot w-3 h-3 rounded-full bg-accent scale-125 transition" data-index="0"></button>
-        <button class="promo-dot w-3 h-3 rounded-full bg-white/30 transition" data-index="1"></button>
-        <button class="promo-dot w-3 h-3 rounded-full bg-white/30 transition" data-index="2"></button>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════
        LLC INCORPORATION SECTION
   ═══════════════════════════════════════════ -->
-  <section id="llc" class="py-12 md:py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+    <section id="llc" class="py-12 md:py-20 bg-white">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-10 md:gap-14 items-center"
+      >
+        <div>
+          <span
+            class="inline-block bg-primary-soft text-white font-heading font-bold text-xs px-4 py-1 rounded-full tracking-widest uppercase mb-4"
+          >
+            Corporativo
+          </span>
+          <h2
+            class="font-heading font-black text-4xl md:text-5xl text-primary mb-6"
+          >
+            Servicio de <span class="text-accent-dark">Incorporación LLC</span>
+          </h2>
+          <p class="text-gray-600 mb-8 leading-relaxed text-base sm:text-lg">
+            Formalizamos tu negocio desde cero. Te orientamos en cada paso del
+            proceso corporativo con rapidez y profesionalismo.
+          </p>
 
-      <div>
-        <span class="inline-block bg-primary-soft text-white font-heading font-bold text-xs px-4 py-1 rounded-full tracking-widest uppercase mb-4">
-          Corporativo
-        </span>
-        <h2 class="font-heading font-black text-4xl md:text-5xl text-primary mb-6">
-          Servicio de <span class="text-accent-dark">Incorporación LLC</span>
-        </h2>
-        <p class="text-gray-600 mb-8 leading-relaxed text-base sm:text-lg">
-          Formalizamos tu negocio desde cero. Te orientamos en cada paso del proceso corporativo con rapidez y profesionalismo.
-        </p>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
+              <span class="text-primary-soft text-xl mt-0.5">✔</span>
+              <p class="text-base font-semibold text-gray-700">
+                Registro de estado de P.R.
+              </p>
+            </div>
+            <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
+              <span class="text-primary-soft text-xl mt-0.5">✔</span>
+              <p class="text-base font-semibold text-gray-700">
+                Número EIN (Seguro Social Patronal)
+              </p>
+            </div>
+            <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
+              <span class="text-primary-soft text-xl mt-0.5">✔</span>
+              <p class="text-base font-semibold text-gray-700">
+                Registro de cuenta SURI
+              </p>
+            </div>
+            <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
+              <span class="text-primary-soft text-xl mt-0.5">✔</span>
+              <p class="text-base font-semibold text-gray-700">
+                Registro de comerciante SURI
+              </p>
+            </div>
+            <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
+              <span class="text-primary-soft text-xl mt-0.5">✔</span>
+              <p class="text-base font-semibold text-gray-700">
+                Resolución corporativa
+              </p>
+            </div>
+            <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
+              <span class="text-primary-soft text-xl mt-0.5">✔</span>
+              <p class="text-base font-semibold text-gray-700">
+                BOI (Reporte de Beneficiarios)
+              </p>
+            </div>
+            <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
+              <span class="text-primary-soft text-xl mt-0.5">✔</span>
+              <p class="text-base font-semibold text-gray-700">
+                Contrato de Operaciones
+              </p>
+            </div>
+            <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
+              <span class="text-primary-soft text-xl mt-0.5">✔</span>
+              <p class="text-base font-semibold text-gray-700">
+                Operating Agreement & By Laws
+              </p>
+            </div>
+          </div>
 
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
-            <span class="text-primary-soft text-xl mt-0.5">✔</span>
-            <p class="text-base font-semibold text-gray-700">Registro de estado de P.R.</p>
-          </div>
-          <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
-            <span class="text-primary-soft text-xl mt-0.5">✔</span>
-            <p class="text-base font-semibold text-gray-700">Número EIN (Seguro Social Patronal)</p>
-          </div>
-          <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
-            <span class="text-primary-soft text-xl mt-0.5">✔</span>
-            <p class="text-base font-semibold text-gray-700">Registro de cuenta SURI</p>
-          </div>
-          <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
-            <span class="text-primary-soft text-xl mt-0.5">✔</span>
-            <p class="text-base font-semibold text-gray-700">Registro de comerciante SURI</p>
-          </div>
-          <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
-            <span class="text-primary-soft text-xl mt-0.5">✔</span>
-            <p class="text-base font-semibold text-gray-700">Resolución corporativa</p>
-          </div>
-          <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
-            <span class="text-primary-soft text-xl mt-0.5">✔</span>
-            <p class="text-base font-semibold text-gray-700">BOI (Reporte de Beneficiarios)</p>
-          </div>
-          <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
-            <span class="text-primary-soft text-xl mt-0.5">✔</span>
-            <p class="text-base font-semibold text-gray-700">Contrato de Operaciones</p>
-          </div>
-          <div class="bg-neutral-mid rounded-xl p-4 flex items-start gap-3">
-            <span class="text-primary-soft text-xl mt-0.5">✔</span>
-            <p class="text-base font-semibold text-gray-700">Operating Agreement & By Laws</p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a
+              href="https://wa.me/17876455074?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20incorporaci%C3%B3n%20LLC."
+              target="_blank"
+              class="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-heading font-bold px-6 py-3 rounded-full shadow-lg transition text-sm"
+            >
+              <i class="fab fa-whatsapp"></i> Consultar por LLC
+            </a>
+            <a
+              href="tel:+17876455074"
+              class="flex items-center gap-2 bg-primary hover:bg-primary-light text-white font-heading font-bold px-6 py-3 rounded-full shadow transition text-sm"
+            >
+              <i class="fas fa-phone"></i> 787.645.5074
+            </a>
           </div>
         </div>
 
-        <div class="mt-8 flex flex-wrap gap-4">
-          <a href="https://wa.me/17876455074?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20incorporaci%C3%B3n%20LLC."
-             target="_blank"
-             class="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-heading font-bold px-6 py-3 rounded-full shadow-lg transition text-sm">
-            <i class="fab fa-whatsapp"></i> Consultar por LLC
-          </a>
-          <a href="tel:+17876455074"
-             class="flex items-center gap-2 bg-primary hover:bg-primary-light text-white font-heading font-bold px-6 py-3 rounded-full shadow transition text-sm">
-            <i class="fas fa-phone"></i> 787.645.5074
-          </a>
+        <div class="flex flex-col gap-5">
+          <div class="bg-primary rounded-2xl p-6 text-white">
+            <h4 class="font-heading font-bold text-lg mb-4">
+              También incluye:
+            </h4>
+            <div class="grid grid-cols-2 gap-3 text-sm">
+              <div class="flex items-center gap-2">
+                <span class="text-accent">✔</span> Permiso Único
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-accent">✔</span> Patente Municipal
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-accent">✔</span> Seg. Social Patronal
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-accent">✔</span> Creación de Corporación
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-accent">✔</span> Registro de Comerciante
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-accent">✔</span> Asesoría de Manejo
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="flex flex-col gap-5">
-        <div class="bg-primary rounded-2xl p-6 text-white">
-          <h4 class="font-heading font-bold text-lg mb-4">También incluye:</h4>
-          <div class="grid grid-cols-2 gap-3 text-sm">
-            <div class="flex items-center gap-2"><span class="text-accent">✔</span> Permiso Único</div>
-            <div class="flex items-center gap-2"><span class="text-accent">✔</span> Patente Municipal</div>
-            <div class="flex items-center gap-2"><span class="text-accent">✔</span> Seg. Social Patronal</div>
-            <div class="flex items-center gap-2"><span class="text-accent">✔</span> Creación de Corporación</div>
-            <div class="flex items-center gap-2"><span class="text-accent">✔</span> Registro de Comerciante</div>
-            <div class="flex items-center gap-2"><span class="text-accent">✔</span> Asesoría de Manejo</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════
        BENEFICIOS / WHY CHOOSE US
   ═══════════════════════════════════════════ -->
-  <section id="beneficios" class="py-12 md:py-20 bg-gradient-to-br from-primary to-dark text-white">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-14">
-        <span class="inline-block bg-accent text-dark-navy font-heading font-extrabold text-xs px-4 py-1 rounded-full tracking-widest uppercase mb-3">
-          ¿Por qué elegirnos?
-        </span>
-        <h2 class="font-heading font-black text-4xl md:text-5xl">
-          Tu Tranquilidad es <span class="text-accent">Nuestra Misión</span>
-        </h2>
-      </div>
+    <section
+      id="beneficios"
+      class="py-12 md:py-20 bg-gradient-to-br from-primary to-dark text-white"
+    >
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-14">
+          <span
+            class="inline-block bg-accent text-dark-navy font-heading font-extrabold text-xs px-4 py-1 rounded-full tracking-widest uppercase mb-3"
+          >
+            ¿Por qué elegirnos?
+          </span>
+          <h2 class="font-heading font-black text-4xl md:text-5xl">
+            Tu Tranquilidad es <span class="text-accent">Nuestra Misión</span>
+          </h2>
+        </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-        <div class="space-y-4">
-          <div class="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center text-3xl">🎯</div>
-          <h3 class="font-heading font-bold text-lg">Asistencia<br/>Personalizada</h3>
-          <p class="text-primary-pale text-base">Cada caso es único. Te orientamos según tu situación específica.</p>
-        </div>
-        <div class="space-y-4">
-          <div class="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center text-3xl">📅</div>
-          <h3 class="font-heading font-bold text-lg">Apoyo<br/>Todo el Año</h3>
-          <p class="text-primary-pale text-base">No solo en Tax Season. Estamos disponibles cuando nos necesites.</p>
-        </div>
-        <div class="space-y-4">
-          <div class="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center text-3xl">💻</div>
-          <h3 class="font-heading font-bold text-lg">Radicación<br/>Electrónica</h3>
-          <p class="text-primary-pale text-base">IRS Authorized e-file Provider. Proceso rápido y seguro.</p>
-        </div>
-        <div class="space-y-4">
-          <div class="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center text-3xl">💰</div>
-          <h3 class="font-heading font-bold text-lg">Máximos<br/>Créditos</h3>
-          <p class="text-primary-pale text-base">Evaluamos correctamente todos tus créditos contributivos.</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          <div class="space-y-4">
+            <div
+              class="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center text-3xl"
+            >
+              🎯
+            </div>
+            <h3 class="font-heading font-bold text-lg">
+              Asistencia<br />Personalizada
+            </h3>
+            <p class="text-primary-pale text-base">
+              Cada caso es único. Te orientamos según tu situación específica.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <div
+              class="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center text-3xl"
+            >
+              📅
+            </div>
+            <h3 class="font-heading font-bold text-lg">
+              Apoyo<br />Todo el Año
+            </h3>
+            <p class="text-primary-pale text-base">
+              No solo en Tax Season. Estamos disponibles cuando nos necesites.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <div
+              class="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center text-3xl"
+            >
+              💻
+            </div>
+            <h3 class="font-heading font-bold text-lg">
+              Radicación<br />Electrónica
+            </h3>
+            <p class="text-primary-pale text-base">
+              IRS Authorized e-file Provider. Proceso rápido y seguro.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <div
+              class="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center text-3xl"
+            >
+              💰
+            </div>
+            <h3 class="font-heading font-bold text-lg">
+              Máximos<br />Créditos
+            </h3>
+            <p class="text-primary-pale text-base">
+              Evaluamos correctamente todos tus créditos contributivos.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════
        ABOUT / NOSOTROS
   ═══════════════════════════════════════════ -->
-  <section id="nosotros" class="py-12 md:py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+    <section id="nosotros" class="py-12 md:py-20 bg-white">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-8 md:gap-12 items-center"
+      >
+        <div class="space-y-6">
+          <span
+            class="inline-block bg-primary-soft text-white font-heading font-bold text-xs px-4 py-1 rounded-full tracking-widest uppercase"
+          >
+            Sobre Nosotros
+          </span>
+          <h2 class="font-heading font-black text-4xl md:text-5xl text-primary">
+            Rodríguez Tax Services<br /><span class="text-accent-dark"
+              >& Accounting Group</span
+            >
+          </h2>
+          <p class="text-gray-600 leading-relaxed text-base sm:text-lg">
+            Somos un grupo de contabilidad y servicios tributarios con sede en
+            Arecibo, Puerto Rico. Preparamos planillas estatales de PR,
+            federales y de negocio con la más alta calidad y ética profesional.
+          </p>
+          <p class="text-gray-600 leading-relaxed text-base sm:text-lg">
+            Trabajamos con negocios en el área Norte de Puerto Rico,
+            orientándolos en todos nuestros servicios. Nuestra misión es ser tu
+            aliado de confianza durante todo el año, no solo en temporada de
+            taxes.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <span
+              class="bg-primary-pale text-primary font-heading font-bold text-xs px-3 py-1 rounded-full"
+            >
+              Arecibo, PR
+            </span>
+            <span
+              class="bg-primary-pale text-primary font-heading font-bold text-xs px-3 py-1 rounded-full"
+            >
+              Barceloneta, PR
+            </span>
+            <span
+              class="bg-primary-pale text-primary font-heading font-bold text-xs px-3 py-1 rounded-full"
+            >
+              Vega Baja, PR
+            </span>
+          </div>
 
-      <div class="space-y-6">
-        <span class="inline-block bg-primary-soft text-white font-heading font-bold text-xs px-4 py-1 rounded-full tracking-widest uppercase">
-          Sobre Nosotros
-        </span>
-        <h2 class="font-heading font-black text-4xl md:text-5xl text-primary">
-          Rodríguez Tax Services<br/><span class="text-accent-dark">& Accounting Group</span>
-        </h2>
-        <p class="text-gray-600 leading-relaxed text-base sm:text-lg">
-          Somos un grupo de contabilidad y servicios tributarios con sede en Arecibo, Puerto Rico.
-          Preparamos planillas estatales de PR, federales y de negocio con la más alta calidad y ética profesional.
-        </p>
-        <p class="text-gray-600 leading-relaxed text-base sm:text-lg">
-          Trabajamos con negocios en el área Norte de Puerto Rico, orientándolos en todos nuestros servicios.
-          Nuestra misión es ser tu aliado de confianza durante todo el año, no solo en temporada de taxes.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <span class="bg-primary-pale text-primary font-heading font-bold text-xs px-3 py-1 rounded-full">
-            Arecibo, PR
-          </span>
-          <span class="bg-primary-pale text-primary font-heading font-bold text-xs px-3 py-1 rounded-full">
-            Barceloneta, PR
-          </span>
-          <span class="bg-primary-pale text-primary font-heading font-bold text-xs px-3 py-1 rounded-full">
-            Vega Baja, PR
-          </span>
+          <!-- Certifications -->
+          <div class="flex items-center gap-4 pt-4">
+            <div>
+              <p class="font-heading font-bold text-primary text-sm">
+                Certificados por:
+              </p>
+              <p class="text-gray-600 text-sm">✅ Hacienda Puerto Rico</p>
+              <p class="text-gray-600 text-sm">
+                ✅ IRS Authorized e-file Provider
+              </p>
+            </div>
+          </div>
         </div>
 
-        <!-- Certifications -->
-        <div class="flex items-center gap-4 pt-4">
-          <div>
-            <p class="font-heading font-bold text-primary text-sm">Certificados por:</p>
-            <p class="text-gray-600 text-sm">✅ Hacienda Puerto Rico</p>
-            <p class="text-gray-600 text-sm">✅ IRS Authorized e-file Provider</p>
+        <div class="space-y-5">
+          <div
+            class="bg-neutral-mid rounded-2xl p-6 grid grid-cols-2 gap-4 text-center"
+          >
+            <div>
+              <p class="font-heading font-black text-3xl text-primary">113+</p>
+              <p class="text-gray-600 text-sm font-semibold">
+                Seguidores en Facebook
+              </p>
+            </div>
+            <div>
+              <p class="font-heading font-black text-3xl text-primary">100%</p>
+              <p class="text-gray-600 text-sm font-semibold">
+                Comprometidos Contigo
+              </p>
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="space-y-5">
-        <div class="bg-neutral-mid rounded-2xl p-6 grid grid-cols-2 gap-4 text-center">
-          <div>
-            <p class="font-heading font-black text-3xl text-primary">113+</p>
-            <p class="text-gray-600 text-sm font-semibold">Seguidores en Facebook</p>
-          </div>
-          <div>
-            <p class="font-heading font-black text-3xl text-primary">100%</p>
-            <p class="text-gray-600 text-sm font-semibold">Comprometidos Contigo</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════
        CONTACT SECTION
   ═══════════════════════════════════════════ -->
-  <section id="contacto" class="py-12 md:py-20 bg-dark">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-14">
-        <span class="inline-block bg-accent text-dark-navy font-heading font-extrabold text-xs px-4 py-1 rounded-full tracking-widest uppercase mb-3">
-          Contáctanos
-        </span>
-        <h2 class="font-heading font-black text-4xl md:text-5xl text-white">
-          Estamos Aquí para <span class="text-accent">Ayudarte</span>
-        </h2>
-        <p class="text-white/60 mt-3 text-base sm:text-lg">Escríbenos o llámanos. Agendamos tu cita de manera rápida y sencilla.</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-6 md:gap-10">
-
-        <!-- Contact Info -->
-        <div class="space-y-4 sm:space-y-6">
-
-          <div class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-6 flex items-center gap-4 sm:gap-5 hover:bg-white/10 transition">
-            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-green-500/20 flex items-center justify-center shrink-0">
-              <i class="fab fa-whatsapp text-green-400 text-xl sm:text-2xl"></i>
-            </div>
-            <div class="contact-info-text">
-              <p class="text-white/50 text-xs font-heading font-bold uppercase tracking-widest mb-1">WhatsApp</p>
-              <a href="https://wa.me/19392441627?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20servicios."
-                 target="_blank" class="text-white font-heading font-bold text-lg hover:text-green-400 transition block">
-                939.244.1627
-              </a>
-              <a href="https://wa.me/17876455074?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20servicios."
-                 target="_blank" class="text-white font-heading font-bold text-lg hover:text-green-400 transition block">
-                787.645.5074
-              </a>
-            </div>
-          </div>
-
-          <div class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-6 flex items-center gap-4 sm:gap-5 hover:bg-white/10 transition">
-            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/20 flex items-center justify-center shrink-0">
-              <i class="fab fa-facebook-messenger text-blue-400 text-xl sm:text-2xl"></i>
-            </div>
-            <div class="contact-info-text">
-              <p class="text-white/50 text-xs font-heading font-bold uppercase tracking-widest mb-1">Facebook Messenger</p>
-              <a href="https://m.me/drodrigueztaxservices" target="_blank"
-                 class="text-white font-heading font-bold text-sm sm:text-base hover:text-blue-400 transition">
-                Rodríguez Tax Services & Accounting Group
-              </a>
-            </div>
-          </div>
-
-          <div class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-6 flex items-center gap-4 sm:gap-5 hover:bg-white/10 transition">
-            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-accent/20 flex items-center justify-center shrink-0">
-              <i class="fas fa-envelope text-accent text-xl sm:text-2xl"></i>
-            </div>
-            <div class="contact-info-text">
-              <p class="text-white/50 text-xs font-heading font-bold uppercase tracking-widest mb-1">Email</p>
-              <a href="mailto:rodriguez.taxgroup1@gmail.com"
-                 class="text-white font-heading font-bold text-sm sm:text-base hover:text-accent transition">
-                rodriguez.taxgroup1@gmail.com
-              </a>
-            </div>
-          </div>
-
-          <div class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-6 flex items-center gap-4 sm:gap-5">
-            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary-soft/20 flex items-center justify-center shrink-0">
-              <i class="fas fa-map-marker-alt text-primary-soft text-xl sm:text-2xl"></i>
-            </div>
-            <div class="contact-info-text">
-              <p class="text-white/50 text-xs font-heading font-bold uppercase tracking-widest mb-1">Ubicación Principal</p>
-              <p class="text-white font-heading font-bold text-xs sm:text-sm">
-                Supermercados Hatillo Kash & Karry<br/>
-                Arecibo, Puerto Rico 00659
-              </p>
-              <p class="text-white/50 text-xs mt-1">También: Barceloneta · Vega Baja, PR</p>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Contact Form / Action Card -->
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-8 space-y-5 sm:space-y-6">
-          <h3 class="font-heading font-bold text-white text-xl">Envíanos un Mensaje</h3>
-
-          <div class="space-y-4">
-            <div>
-              <label class="block text-white/60 text-xs font-heading font-bold uppercase tracking-widest mb-2">Nombre</label>
-              <input type="text" id="contact-name" placeholder="Tu nombre completo"
-                     class="w-full bg-white/10 border border-white/20 text-white placeholder-white/30 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-accent transition" />
-            </div>
-            <div>
-              <label class="block text-white/60 text-xs font-heading font-bold uppercase tracking-widest mb-2">Teléfono / WhatsApp</label>
-              <input type="tel" id="contact-phone" placeholder="Ej. 939-000-0000"
-                     class="w-full bg-white/10 border border-white/20 text-white placeholder-white/30 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-accent transition" />
-            </div>
-            <div>
-              <label class="block text-white/60 text-xs font-heading font-bold uppercase tracking-widest mb-2">Servicio de Interés</label>
-              <select id="contact-service"
-                      class="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-accent transition appearance-none">
-                <option value="" class="bg-gray-900">Selecciona un servicio</option>
-                <option value="Planilla Estatal PR" class="bg-gray-900">Planilla Estatal PR</option>
-                <option value="Planilla Federal IRS" class="bg-gray-900">Planilla Federal IRS</option>
-                <option value="Planilla de Negocio" class="bg-gray-900">Planilla de Negocio</option>
-                <option value="Incorporación LLC" class="bg-gray-900">Incorporación LLC</option>
-                <option value="Permisos y Licencias" class="bg-gray-900">Permisos y Licencias</option>
-                <option value="Asesoría General" class="bg-gray-900">Asesoría General</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Send via WhatsApp -->
-          <button id="send-whatsapp"
-                  class="w-full flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600
-                         text-white font-heading font-bold text-base py-4 rounded-xl transition shadow-lg">
-            <i class="fab fa-whatsapp text-xl"></i> Enviar por WhatsApp
-          </button>
-
-          <!-- Messenger -->
-          <a href="https://m.me/drodrigueztaxservices" target="_blank" rel="noopener"
-             class="w-full flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700
-                    text-white font-heading font-bold text-base py-4 rounded-xl transition shadow-lg">
-            <i class="fab fa-facebook-messenger text-xl"></i> Escribir por Messenger
-          </a>
-
-          <!-- Facebook -->
-          <a href="https://www.facebook.com/drodrigueztaxservices/" target="_blank" rel="noopener"
-             class="w-full flex items-center justify-center gap-3 bg-white/10 border border-white/20
-                    hover:bg-white/20 text-white font-heading font-bold text-sm py-3 rounded-xl transition">
-            <i class="fab fa-facebook text-lg"></i> Visitar Facebook
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════════ -->
-  <footer class="bg-black py-8 md:py-10 text-white/60">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 pb-8 border-b border-white/10">
-
-        <div class="space-y-3">
-          <div class="flex items-center gap-3">
-            <img src="images/logo" alt="Logo" class="h-10 w-10 rounded-full object-cover border-2 border-accent" />
-            <div>
-              <p class="text-white font-heading font-extrabold text-sm">RODRÍGUEZ</p>
-              <p class="text-accent font-heading font-bold text-xs">TAX SERVICES & ACCOUNTING</p>
-            </div>
-          </div>
-          <p class="text-sm leading-relaxed">
-            Expertos en planillas estatales, federales y de negocio en Puerto Rico.
-            IRS Authorized e-file Provider. Certified Hacienda PR.
+    <section id="contacto" class="py-12 md:py-20 bg-dark">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-14">
+          <span
+            class="inline-block bg-accent text-dark-navy font-heading font-extrabold text-xs px-4 py-1 rounded-full tracking-widest uppercase mb-3"
+          >
+            Contáctanos
+          </span>
+          <h2 class="font-heading font-black text-4xl md:text-5xl text-white">
+            Estamos Aquí para <span class="text-accent">Ayudarte</span>
+          </h2>
+          <p class="text-white/60 mt-3 text-base sm:text-lg">
+            Escríbenos o llámanos. Agendamos tu cita de manera rápida y
+            sencilla.
           </p>
         </div>
 
-        <div>
-          <p class="text-white font-heading font-bold text-base mb-4">Servicios</p>
-          <ul class="space-y-2 text-sm">
-            <li>→ Planilla Estatal PR</li>
-            <li>→ Planilla Federal IRS</li>
-            <li>→ Planilla de Negocio</li>
-            <li>→ Incorporación LLC</li>
-            <li>→ Permisos y Licencias</li>
-            <li>→ Asesoría Contable</li>
-          </ul>
-        </div>
+        <div class="grid md:grid-cols-2 gap-6 md:gap-10">
+          <!-- Contact Info -->
+          <div class="space-y-4 sm:space-y-6">
+            <div
+              class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-6 flex items-center gap-4 sm:gap-5 hover:bg-white/10 transition"
+            >
+              <div
+                class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-green-500/20 flex items-center justify-center shrink-0"
+              >
+                <i
+                  class="fab fa-whatsapp text-green-400 text-xl sm:text-2xl"
+                ></i>
+              </div>
+              <div class="contact-info-text">
+                <p
+                  class="text-white/50 text-xs font-heading font-bold uppercase tracking-widest mb-1"
+                >
+                  WhatsApp
+                </p>
+                <a
+                  href="https://wa.me/19392441627?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20servicios."
+                  target="_blank"
+                  class="text-white font-heading font-bold text-lg hover:text-green-400 transition block"
+                >
+                  939.244.1627
+                </a>
+                <a
+                  href="https://wa.me/17876455074?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20servicios."
+                  target="_blank"
+                  class="text-white font-heading font-bold text-lg hover:text-green-400 transition block"
+                >
+                  787.645.5074
+                </a>
+              </div>
+            </div>
 
-        <div>
-          <p class="text-white font-heading font-bold text-base mb-4">Contacto</p>
-          <ul class="space-y-2 text-sm">
-            <li><i class="fas fa-phone mr-2 text-accent"></i>939.244.1627</li>
-            <li><i class="fas fa-phone mr-2 text-accent"></i>787.645.5074</li>
-            <li><i class="fas fa-envelope mr-2 text-accent"></i>rodriguez.taxgroup1@gmail.com</li>
-            <li><i class="fas fa-map-marker-alt mr-2 text-accent"></i>Arecibo, Puerto Rico</li>
-          </ul>
-          <div class="flex gap-4 mt-5">
-            <a href="https://www.facebook.com/drodrigueztaxservices/" target="_blank"
-               class="text-white/50 hover:text-blue-400 transition text-xl"><i class="fab fa-facebook"></i></a>
-            <a href="https://wa.me/19392441627" target="_blank"
-               class="text-white/50 hover:text-green-400 transition text-xl"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://m.me/drodrigueztaxservices" target="_blank"
-               class="text-white/50 hover:text-blue-300 transition text-xl"><i class="fab fa-facebook-messenger"></i></a>
+            <div
+              class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-6 flex items-center gap-4 sm:gap-5 hover:bg-white/10 transition"
+            >
+              <div
+                class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-500/20 flex items-center justify-center shrink-0"
+              >
+                <i
+                  class="fab fa-facebook-messenger text-blue-400 text-xl sm:text-2xl"
+                ></i>
+              </div>
+              <div class="contact-info-text">
+                <p
+                  class="text-white/50 text-xs font-heading font-bold uppercase tracking-widest mb-1"
+                >
+                  Facebook Messenger
+                </p>
+                <a
+                  href="https://m.me/drodrigueztaxservices"
+                  target="_blank"
+                  class="text-white font-heading font-bold text-sm sm:text-base hover:text-blue-400 transition"
+                >
+                  Rodríguez Tax Services & Accounting Group
+                </a>
+              </div>
+            </div>
+
+            <div
+              class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-6 flex items-center gap-4 sm:gap-5 hover:bg-white/10 transition"
+            >
+              <div
+                class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-accent/20 flex items-center justify-center shrink-0"
+              >
+                <i class="fas fa-envelope text-accent text-xl sm:text-2xl"></i>
+              </div>
+              <div class="contact-info-text">
+                <p
+                  class="text-white/50 text-xs font-heading font-bold uppercase tracking-widest mb-1"
+                >
+                  Email
+                </p>
+                <a
+                  href="mailto:rodriguez.taxgroup1@gmail.com"
+                  class="text-white font-heading font-bold text-sm sm:text-base hover:text-accent transition"
+                >
+                  rodriguez.taxgroup1@gmail.com
+                </a>
+              </div>
+            </div>
+
+            <div
+              class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-6 flex items-center gap-4 sm:gap-5"
+            >
+              <div
+                class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary-soft/20 flex items-center justify-center shrink-0"
+              >
+                <i
+                  class="fas fa-map-marker-alt text-primary-soft text-xl sm:text-2xl"
+                ></i>
+              </div>
+              <div class="contact-info-text">
+                <p
+                  class="text-white/50 text-xs font-heading font-bold uppercase tracking-widest mb-1"
+                >
+                  Ubicación Principal
+                </p>
+                <p class="text-white font-heading font-bold text-xs sm:text-sm">
+                  Supermercados Hatillo Kash & Karry<br />
+                  Arecibo, Puerto Rico 00659
+                </p>
+                <p class="text-white/50 text-xs mt-1">
+                  También: Barceloneta · Vega Baja, PR
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form / Action Card -->
+          <div
+            class="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-8 space-y-5 sm:space-y-6"
+          >
+            <h3 class="font-heading font-bold text-white text-xl">
+              Envíanos un Mensaje
+            </h3>
+
+            <div class="space-y-4">
+              <div>
+                <label
+                  class="block text-white/60 text-xs font-heading font-bold uppercase tracking-widest mb-2"
+                  >Nombre</label
+                >
+                <input
+                  type="text"
+                  id="contact-name"
+                  placeholder="Tu nombre completo"
+                  class="w-full bg-white/10 border border-white/20 text-white placeholder-white/30 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-accent transition"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-white/60 text-xs font-heading font-bold uppercase tracking-widest mb-2"
+                  >Teléfono / WhatsApp</label
+                >
+                <input
+                  type="tel"
+                  id="contact-phone"
+                  placeholder="Ej. 939-000-0000"
+                  class="w-full bg-white/10 border border-white/20 text-white placeholder-white/30 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-accent transition"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-white/60 text-xs font-heading font-bold uppercase tracking-widest mb-2"
+                  >Servicio de Interés</label
+                >
+                <select
+                  id="contact-service"
+                  class="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-accent transition appearance-none"
+                >
+                  <option value="" class="bg-gray-900">
+                    Selecciona un servicio
+                  </option>
+                  <option value="Planilla Estatal PR" class="bg-gray-900">
+                    Planilla Estatal PR
+                  </option>
+                  <option value="Planilla Federal IRS" class="bg-gray-900">
+                    Planilla Federal IRS
+                  </option>
+                  <option value="Planilla de Negocio" class="bg-gray-900">
+                    Planilla de Negocio
+                  </option>
+                  <option value="Incorporación LLC" class="bg-gray-900">
+                    Incorporación LLC
+                  </option>
+                  <option value="Permisos y Licencias" class="bg-gray-900">
+                    Permisos y Licencias
+                  </option>
+                  <option value="Asesoría General" class="bg-gray-900">
+                    Asesoría General
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Send via WhatsApp -->
+            <button
+              id="send-whatsapp"
+              class="w-full flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white font-heading font-bold text-base py-4 rounded-xl transition shadow-lg"
+            >
+              <i class="fab fa-whatsapp text-xl"></i> Enviar por WhatsApp
+            </button>
+
+            <!-- Messenger -->
+            <a
+              href="https://m.me/drodrigueztaxservices"
+              target="_blank"
+              rel="noopener"
+              class="w-full flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-heading font-bold text-base py-4 rounded-xl transition shadow-lg"
+            >
+              <i class="fab fa-facebook-messenger text-xl"></i> Escribir por
+              Messenger
+            </a>
+
+            <!-- Facebook -->
+            <a
+              href="https://www.facebook.com/drodrigueztaxservices/"
+              target="_blank"
+              rel="noopener"
+              class="w-full flex items-center justify-center gap-3 bg-white/10 border border-white/20 hover:bg-white/20 text-white font-heading font-bold text-sm py-3 rounded-xl transition"
+            >
+              <i class="fab fa-facebook text-lg"></i> Visitar Facebook
+            </a>
           </div>
         </div>
-
       </div>
-      <div class="pt-6 text-center text-sm">
-        <p>© 2025 Rodríguez Tax Services & Accounting Group. Todos los derechos reservados.</p>
-        <p class="mt-1 text-white/30">Arecibo · Barceloneta · Vega Baja, Puerto Rico</p>
-      </div>
-    </div>
-  </footer>
+    </section>
 
-  <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+    <footer class="bg-black py-8 md:py-10 text-white/60">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 pb-8 border-b border-white/10"
+        >
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <img
+                src="logo.png"
+                alt="Logo"
+                class="h-10 w-10 rounded-full object-cover border-2 border-accent"
+              />
+              <div>
+                <p class="text-white font-heading font-extrabold text-sm">
+                  RODRÍGUEZ
+                </p>
+                <p class="text-accent font-heading font-bold text-xs">
+                  TAX SERVICES & ACCOUNTING
+                </p>
+              </div>
+            </div>
+            <p class="text-sm leading-relaxed">
+              Expertos en planillas estatales, federales y de negocio en Puerto
+              Rico. IRS Authorized e-file Provider. Certified Hacienda PR.
+            </p>
+          </div>
+
+          <div>
+            <p class="text-white font-heading font-bold text-base mb-4">
+              Servicios
+            </p>
+            <ul class="space-y-2 text-sm">
+              <li>→ Planilla Estatal PR</li>
+              <li>→ Planilla Federal IRS</li>
+              <li>→ Planilla de Negocio</li>
+              <li>→ Incorporación LLC</li>
+              <li>→ Permisos y Licencias</li>
+              <li>→ Asesoría Contable</li>
+            </ul>
+          </div>
+
+          <div>
+            <p class="text-white font-heading font-bold text-base mb-4">
+              Contacto
+            </p>
+            <ul class="space-y-2 text-sm">
+              <li><i class="fas fa-phone mr-2 text-accent"></i>939.244.1627</li>
+              <li><i class="fas fa-phone mr-2 text-accent"></i>787.645.5074</li>
+              <li>
+                <i class="fas fa-envelope mr-2 text-accent"></i
+                >rodriguez.taxgroup1@gmail.com
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt mr-2 text-accent"></i>Arecibo,
+                Puerto Rico
+              </li>
+            </ul>
+            <div class="flex gap-4 mt-5">
+              <a
+                href="https://www.facebook.com/drodrigueztaxservices/"
+                target="_blank"
+                class="text-white/50 hover:text-blue-400 transition text-xl"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a
+                href="https://wa.me/19392441627"
+                target="_blank"
+                class="text-white/50 hover:text-green-400 transition text-xl"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+              <a
+                href="https://m.me/drodrigueztaxservices"
+                target="_blank"
+                class="text-white/50 hover:text-blue-300 transition text-xl"
+                ><i class="fab fa-facebook-messenger"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="pt-6 text-center text-sm">
+          <p>
+            © 2025 Rodríguez Tax Services & Accounting Group. Todos los derechos
+            reservados.
+          </p>
+          <p class="mt-1 text-white/30">
+            Arecibo · Barceloneta · Vega Baja, Puerto Rico
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════
        LOGO MODAL
   ═══════════════════════════════════════════ -->
-  <div id="logo-modal"
-       class="fixed inset-0 z-[300] flex items-center justify-center hidden"
-       aria-modal="true" role="dialog">
-    <!-- Backdrop -->
-    <div id="logo-modal-backdrop" class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
-    <!-- Image wrapper -->
-    <div class="relative z-10 flex items-center justify-center p-6">
-      <img src="images/logo" alt="Rodríguez Tax Services & Accounting Group"
-           class="max-w-[90vw] max-h-[85vh] object-contain rounded-2xl shadow-2xl border-4 border-accent" />
+    <div
+      id="logo-modal"
+      class="fixed inset-0 z-[300] flex items-center justify-center hidden"
+      aria-modal="true"
+      role="dialog"
+    >
+      <!-- Backdrop -->
+      <div
+        id="logo-modal-backdrop"
+        class="absolute inset-0 bg-black/75 backdrop-blur-sm"
+      ></div>
+      <!-- Image wrapper -->
+      <div class="relative z-10 flex items-center justify-center p-6">
+        <img
+          src="images/logo"
+          alt="Rodríguez Tax Services & Accounting Group"
+          class="max-w-[90vw] max-h-[85vh] object-contain rounded-2xl shadow-2xl border-4 border-accent"
+        />
+      </div>
     </div>
-  </div>
 
-  <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════
        JAVASCRIPT
   ═══════════════════════════════════════════ -->
-  <script>
-  $(function () {
+    <script>
+      $(function () {
+        // ── Mobile menu ──
+        $("#menu-toggle").on("click", function () {
+          $("#mobile-menu").slideToggle(200);
+        });
 
-    // ── Mobile menu ──
-    $('#menu-toggle').on('click', function () {
-      $('#mobile-menu').slideToggle(200);
-    });
+        // Close mobile menu on link click
+        $("#mobile-menu a").on("click", function () {
+          $("#mobile-menu").slideUp(200);
+        });
 
-    // Close mobile menu on link click
-    $('#mobile-menu a').on('click', function () {
-      $('#mobile-menu').slideUp(200);
-    });
+        // ── Logo Modal ──
+        $("#logo-trigger").on("click", function () {
+          $("#logo-modal").removeClass("hidden");
+          // trigger reflow so transition plays
+          $("#logo-modal")[0].offsetHeight;
+          $("#logo-modal").addClass("visible");
+        });
 
-    // ── Logo Modal ──
-    $('#logo-trigger').on('click', function () {
-      $('#logo-modal').removeClass('hidden');
-      // trigger reflow so transition plays
-      $('#logo-modal')[0].offsetHeight;
-      $('#logo-modal').addClass('visible');
-    });
+        // Close on backdrop click or anywhere outside the image
+        $("#logo-modal").on("click", function (e) {
+          if (
+            $(e.target).is("#logo-modal") ||
+            $(e.target).is("#logo-modal-backdrop")
+          ) {
+            $("#logo-modal").removeClass("visible");
+            setTimeout(function () {
+              $("#logo-modal").addClass("hidden");
+            }, 260);
+          }
+        });
 
-    // Close on backdrop click or anywhere outside the image
-    $('#logo-modal').on('click', function (e) {
-      if ($(e.target).is('#logo-modal') || $(e.target).is('#logo-modal-backdrop')) {
-        $('#logo-modal').removeClass('visible');
-        setTimeout(function () { $('#logo-modal').addClass('hidden'); }, 260);
-      }
-    });
+        // Close on Escape key
+        $(document).on("keydown", function (e) {
+          if (e.key === "Escape" && !$("#logo-modal").hasClass("hidden")) {
+            $("#logo-modal").removeClass("visible");
+            setTimeout(function () {
+              $("#logo-modal").addClass("hidden");
+            }, 260);
+          }
+        });
 
-    // Close on Escape key
-    $(document).on('keydown', function (e) {
-      if (e.key === 'Escape' && !$('#logo-modal').hasClass('hidden')) {
-        $('#logo-modal').removeClass('visible');
-        setTimeout(function () { $('#logo-modal').addClass('hidden'); }, 260);
-      }
-    });
+        // ── Navbar scroll ──
+        $(window).on("scroll", function () {
+          if ($(this).scrollTop() > 60) {
+            $("#navbar").addClass("scrolled");
+          } else {
+            $("#navbar").removeClass("scrolled");
+          }
+        });
 
-    // ── Navbar scroll ──
-    $(window).on('scroll', function () {
-      if ($(this).scrollTop() > 60) {
-        $('#navbar').addClass('scrolled');
-      } else {
-        $('#navbar').removeClass('scrolled');
-      }
-    });
+        // ── Smooth scroll ──
+        $('a[href^="#"]').on("click", function (e) {
+          var target = $(this.getAttribute("href"));
+          if (target.length) {
+            e.preventDefault();
+            $("html, body").animate(
+              { scrollTop: target.offset().top - 122 },
+              600,
+              "swing",
+            );
+          }
+        });
 
-    // ── Smooth scroll ──
-    $('a[href^="#"]').on('click', function (e) {
-      var target = $(this.getAttribute('href'));
-      if (target.length) {
-        e.preventDefault();
-        $('html, body').animate({ scrollTop: target.offset().top - 122 }, 600, 'swing');
-      }
-    });
+        // ══════════════════════════════════
+        // HERO CAROUSEL
+        // ══════════════════════════════════
+        var heroSlides = $(".hero-slide");
+        var heroDots = $(".hero-dot");
+        var heroTotal = heroSlides.length;
+        var heroCurrent = 0;
+        var heroTimer;
 
-    // ══════════════════════════════════
-    // HERO CAROUSEL
-    // ══════════════════════════════════
-    var heroSlides  = $('.hero-slide');
-    var heroDots    = $('.hero-dot');
-    var heroTotal   = heroSlides.length;
-    var heroCurrent = 0;
-    var heroTimer;
-
-    function heroShow(index) {
-      heroSlides.removeClass('active').css('display','none');
-      heroDots.removeClass('scale-125 bg-accent').addClass('bg-white/40');
-      $(heroSlides[index]).css('display','flex').addClass('active');
-      $(heroDots[index]).addClass('scale-125 bg-accent').removeClass('bg-white/40');
-      heroCurrent = index;
-    }
-
-    function heroNext() {
-      heroShow((heroCurrent + 1) % heroTotal);
-    }
-    function heroPrev() {
-      heroShow((heroCurrent - 1 + heroTotal) % heroTotal);
-    }
-
-    function startHeroAuto() {
-      heroTimer = setInterval(heroNext, 5000);
-    }
-    function resetHeroAuto() {
-      clearInterval(heroTimer);
-      startHeroAuto();
-    }
-
-    $('#hero-next').on('click', function () { heroNext(); resetHeroAuto(); });
-    $('#hero-prev').on('click', function () { heroPrev(); resetHeroAuto(); });
-    heroDots.on('click', function () {
-      heroShow(parseInt($(this).data('index')));
-      resetHeroAuto();
-    });
-
-    heroShow(0);
-    startHeroAuto();
-
-    // ══════════════════════════════════
-    // PROMO CAROUSEL
-    // ══════════════════════════════════
-    var promoIndex = 0;
-    var promoTotal = $('.promo-card').length;
-    var promoTimer;
-
-    function promoShow(index) {
-      $('#promo-track').css('transform', 'translateX(' + (-100 * index) + '%)');
-      $('.promo-dot').removeClass('bg-accent scale-125').addClass('bg-white/30');
-      $('[data-index="' + index + '"].promo-dot').addClass('bg-accent scale-125').removeClass('bg-white/30');
-      promoIndex = index;
-    }
-
-    function promoNext() { promoShow((promoIndex + 1) % promoTotal); }
-    function promoPrev() { promoShow((promoIndex - 1 + promoTotal) % promoTotal); }
-
-    function startPromoAuto() { promoTimer = setInterval(promoNext, 4500); }
-    function resetPromoAuto() { clearInterval(promoTimer); startPromoAuto(); }
-
-    $('#promo-next').on('click', function () { promoNext(); resetPromoAuto(); });
-    $('#promo-prev').on('click', function () { promoPrev(); resetPromoAuto(); });
-    $('.promo-dot').on('click', function () {
-      promoShow(parseInt($(this).data('index')));
-      resetPromoAuto();
-    });
-
-    promoShow(0);
-    startPromoAuto();
-
-    // ══════════════════════════════════
-    // CONTACT → WHATSAPP
-    // ══════════════════════════════════
-    $('#send-whatsapp').on('click', function () {
-      var name    = $('#contact-name').val().trim();
-      var phone   = $('#contact-phone').val().trim();
-      var service = $('#contact-service').val();
-
-      if (!name) { alert('Por favor ingresa tu nombre.'); return; }
-
-      var msg = 'Hola, me llamo ' + name + '.';
-      if (phone)   msg += ' Mi teléfono es ' + phone + '.';
-      if (service) msg += ' Estoy interesado/a en: ' + service + '.';
-      msg += ' ¿Me pueden brindar más información?';
-
-      var url = 'https://wa.me/19392441627?text=' + encodeURIComponent(msg);
-      window.open(url, '_blank');
-    });
-
-    // ══════════════════════════════════
-    // INTERSECTION OBSERVER — animate on scroll
-    // ══════════════════════════════════
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          $(entry.target).addClass('opacity-100 translate-y-0').removeClass('opacity-0 translate-y-8');
+        function heroShow(index) {
+          heroSlides.removeClass("active").css("display", "none");
+          heroDots.removeClass("scale-125 bg-accent").addClass("bg-white/40");
+          $(heroSlides[index]).css("display", "flex").addClass("active");
+          $(heroDots[index])
+            .addClass("scale-125 bg-accent")
+            .removeClass("bg-white/40");
+          heroCurrent = index;
         }
+
+        function heroNext() {
+          heroShow((heroCurrent + 1) % heroTotal);
+        }
+        function heroPrev() {
+          heroShow((heroCurrent - 1 + heroTotal) % heroTotal);
+        }
+
+        function startHeroAuto() {
+          heroTimer = setInterval(heroNext, 5000);
+        }
+        function resetHeroAuto() {
+          clearInterval(heroTimer);
+          startHeroAuto();
+        }
+
+        $("#hero-next").on("click", function () {
+          heroNext();
+          resetHeroAuto();
+        });
+        $("#hero-prev").on("click", function () {
+          heroPrev();
+          resetHeroAuto();
+        });
+        heroDots.on("click", function () {
+          heroShow(parseInt($(this).data("index")));
+          resetHeroAuto();
+        });
+
+        heroShow(0);
+        startHeroAuto();
+
+        // ══════════════════════════════════
+        // PROMO CAROUSEL
+        // ══════════════════════════════════
+        var promoIndex = 0;
+        var promoTotal = $(".promo-card").length;
+        var promoTimer;
+
+        function promoShow(index) {
+          $("#promo-track").css(
+            "transform",
+            "translateX(" + -100 * index + "%)",
+          );
+          $(".promo-dot")
+            .removeClass("bg-accent scale-125")
+            .addClass("bg-white/30");
+          $('[data-index="' + index + '"].promo-dot')
+            .addClass("bg-accent scale-125")
+            .removeClass("bg-white/30");
+          promoIndex = index;
+        }
+
+        function promoNext() {
+          promoShow((promoIndex + 1) % promoTotal);
+        }
+        function promoPrev() {
+          promoShow((promoIndex - 1 + promoTotal) % promoTotal);
+        }
+
+        function startPromoAuto() {
+          promoTimer = setInterval(promoNext, 4500);
+        }
+        function resetPromoAuto() {
+          clearInterval(promoTimer);
+          startPromoAuto();
+        }
+
+        $("#promo-next").on("click", function () {
+          promoNext();
+          resetPromoAuto();
+        });
+        $("#promo-prev").on("click", function () {
+          promoPrev();
+          resetPromoAuto();
+        });
+        $(".promo-dot").on("click", function () {
+          promoShow(parseInt($(this).data("index")));
+          resetPromoAuto();
+        });
+
+        promoShow(0);
+        startPromoAuto();
+
+        // ══════════════════════════════════
+        // CONTACT → WHATSAPP
+        // ══════════════════════════════════
+        $("#send-whatsapp").on("click", function () {
+          var name = $("#contact-name").val().trim();
+          var phone = $("#contact-phone").val().trim();
+          var service = $("#contact-service").val();
+
+          if (!name) {
+            alert("Por favor ingresa tu nombre.");
+            return;
+          }
+
+          var msg = "Hola, me llamo " + name + ".";
+          if (phone) msg += " Mi teléfono es " + phone + ".";
+          if (service) msg += " Estoy interesado/a en: " + service + ".";
+          msg += " ¿Me pueden brindar más información?";
+
+          var url = "https://wa.me/19392441627?text=" + encodeURIComponent(msg);
+          window.open(url, "_blank");
+        });
+
+        // ══════════════════════════════════
+        // INTERSECTION OBSERVER — animate on scroll
+        // ══════════════════════════════════
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                $(entry.target)
+                  .addClass("opacity-100 translate-y-0")
+                  .removeClass("opacity-0 translate-y-8");
+              }
+            });
+          },
+          { threshold: 0.1 },
+        );
+
+        $(".service-card").each(function () {
+          $(this).addClass(
+            "opacity-0 translate-y-8 transition-all duration-700",
+          );
+          observer.observe(this);
+        });
       });
-    }, { threshold: 0.1 });
-
-    $('.service-card').each(function () {
-      $(this).addClass('opacity-0 translate-y-8 transition-all duration-700');
-      observer.observe(this);
-    });
-
-  });
-  </script>
-
-</body>
+    </script>
+  </body>
 </html>
